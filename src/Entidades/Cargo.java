@@ -27,5 +27,4 @@ public class Cargo {
     public void setCargo(String Cargo) {
         this.Cargo = Cargo;
     }
-    
 }
