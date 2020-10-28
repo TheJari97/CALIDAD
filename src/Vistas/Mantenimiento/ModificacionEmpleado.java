@@ -5,12 +5,9 @@
  */
 package Vistas.Mantenimiento;
 
-import DAO.DAOCliente;
-<<<<<<< HEAD
+
 import DAO.DAOUsuarios;
-=======
-import DAO.DAOEmpleado;
->>>>>>> b0fc0617de37c5e527783c85be19341791641c2f
+
 import Entidades.Usuario;
 
 /**
@@ -272,10 +269,9 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
         this.txtNnombre.setText(Nom_inicial);
         this.txtNapellido.setText(Ape_inicial);
         this.txtnDocumento.setText(Doc_ini);
-        this.txtnEdad.setText(edad_inicial);
+        this.txtnEdad.setText(""+edad_inicial);
         this.txtnTelefono.setText(tel_inicial);
         this.txtnPass.setText(pass_inicial);
-        Integer.parseInt(txtnEdad)
     }
     private void actualizar(){
         DAOUsuarios dao = new DAOUsuarios();
@@ -283,7 +279,7 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
         String apellido=txtNapellido.getText();
         String docu=txtnDocumento.getText();
         int edad=Integer.parseInt(txtnEdad.getText());
-        Strimg tel=txtnTelefono.getText();
+        String tel=txtnTelefono.getText();
         String pass=txtnPass.getText();
         Usuario actu = new Usuario(id,nombre,apellido);
         dao.Editar(actu);

@@ -310,7 +310,7 @@ public final class MantProductos extends javax.swing.JFrame {
         Producto edit = dao.BuscarporID(ID);
         edit.verDatos();
         mod.setId(ID);
-        mod.setDes_incial(edit.getDescripcion());
+        mod.setDes_incial(edit.getProducto());
         mod.setPrecio_inicial(edit.getPrecioUni());
         mod.setStock_inicial(edit.getStock());
         mod.setLocationRelativeTo(this);

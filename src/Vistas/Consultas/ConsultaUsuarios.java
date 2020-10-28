@@ -124,7 +124,7 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
         int row = 0;
         while(it.hasNext()){
             Usuario tmp = (Usuario) it.next();
-            modelo.setValueAt("E"+tmp.getCodEmpleado(), row, 0);
+            modelo.setValueAt("E"+tmp.getIdusuario(), row, 0);
             modelo.setValueAt(tmp.getNombre(), row, 1);
             modelo.setValueAt(tmp.getApellido(), row, 2);
             row++;

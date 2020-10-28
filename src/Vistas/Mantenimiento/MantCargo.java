@@ -105,7 +105,6 @@ public class MantCargo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnagregarActionPerformed
 
       
-    }
     /**
      * @param args the command line arguments
      */

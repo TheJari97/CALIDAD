@@ -5,12 +5,11 @@
  */
 package Vistas.Mantenimiento;
 
-import DAO.DAOCliente;
 import DAO.DAOProducto;
 import DAO.DAOProveedor;
-import Entidades.Cliente;
+
 import Entidades.Producto;
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -222,18 +221,18 @@ public class ModificacionProducto extends javax.swing.JFrame {
         String descripcion = txtDescrip.getText();
         double precioUni =Double.parseDouble(txtPrecioU.getText());
         int stock = Integer.parseInt(txtStock.getText());
-        Categoria p = P.BuscarporNombre((String) cbxPro.getSelectedItem());
+        Proveedor p = P.BuscarporNombre((String) cbxPro.getSelectedItem());
         
-        Producto actu = new Producto(id, descripcion, precioUni, stock,p);
+        Producto actu = new Producto(id, descripcion, precioUni, stock,p,null);
         dao.Editar(actu);
     }
     private void CargarProveedores(){
         DAOProveedor dao = new DAOProveedor();
-        List<Categoria> list = dao.Listar();
+        List<Proveedor> list = dao.Listar();
         Iterator it = list.iterator();
         while(it.hasNext()){
-            Categoria p = (Categoria) it.next();
-            this.cbxPro.addItem(p.getNombre());
+            Proveedor p =  (Proveedor) it.next();
+            this.cbxPro.addItem(p.getProveedor());
         }
     }
     /**

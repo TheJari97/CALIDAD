@@ -5,10 +5,11 @@
  */
 package Vistas.Mantenimiento;
 
-import DAO.DAOCliente;
+
 import DAO.DAOProveedor;
-import Entidades.Cliente;
-import Entidades.Categoria;
+import Entidades.Producto;
+import Entidades.Proveedor;
+
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -190,7 +191,7 @@ public class MantProveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
         DAOProveedor dao = new DAOProveedor();
         String nombre = txtNombre.getText();
-        Categoria nuevo = new Categoria(0,nombre); // no importa el id
+        Proveedor nuevo = new Proveedor(0,nombre); // no importa el id
         dao.Insertar(nuevo);
         ActualizarTabla();
         bloqueo(false);
@@ -206,7 +207,7 @@ public class MantProveedores extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        DAOCliente dao = new DAOCliente();
+        DAOProveedor dao = new DAOProveedor();
         int fila = jTable.getSelectedRow();
         int id = (int) jTable.getValueAt(fila, 0);
         
@@ -222,7 +223,7 @@ public class MantProveedores extends javax.swing.JFrame {
         String nom = (String) jTable.getValueAt(fila, 1);
         
         String new_nombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre para "+nom+":");
-        dao.Editar(new Categoria(id, new_nombre) );
+        dao.Editar(new Proveedor(id, new_nombre) );
         
         ActualizarTabla();
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -243,7 +244,7 @@ public class MantProveedores extends javax.swing.JFrame {
     public void ActualizarTabla(){
         DefaultTableModel modelo = new DefaultTableModel();
         DAOProveedor dao = new DAOProveedor();
-        List<Categoria> lista= dao.Listar();
+        List<Proveedor> lista= dao.Listar();
         
         modelo.setRowCount(lista.size());
         modelo.addColumn("id Proveedor");
@@ -252,9 +253,9 @@ public class MantProveedores extends javax.swing.JFrame {
         Iterator it = lista.iterator();
         int i=0;
         while(it.hasNext()){
-            Categoria a = (Categoria) it.next();
-            modelo.setValueAt(a.getIdProveedor(),i, 0);
-            modelo.setValueAt(a.getNombre(),i, 1);
+            Proveedor a = (Proveedor) it.next();
+            modelo.setValueAt(a.getIdproveedor(),i, 0);
+            modelo.setValueAt(a.getProveedor(),i, 1);
             i++;
         }
         this.jTable.setModel(modelo);

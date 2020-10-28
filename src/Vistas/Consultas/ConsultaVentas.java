@@ -5,11 +5,11 @@
  */
 package Vistas.Consultas;
 
-import DAO.DAOCliente;
+
 import DAO.DAOUsuarios;
 import DAO.DAOProducto;
 import DAO.DAOVentas;
-import Entidades.Cliente;
+
 import Entidades.DET_Venta;
 import Entidades.Usuario;
 import Entidades.Producto;
@@ -276,7 +276,7 @@ public class ConsultaVentas extends javax.swing.JFrame {
         int i=0;
         while(it.hasNext()){
            DET_Venta tmp= (DET_Venta) it.next();
-           modelo.setValueAt(tmp.getP().getDescripcion(), i, 0);
+           modelo.setValueAt(tmp.getP().getProducto(), i, 0);
            modelo.setValueAt(tmp.getP().getPrecioUni(), i, 1);
            modelo.setValueAt(tmp.getCantidad(), i, 2);
            modelo.setValueAt(tmp.getPrecioN(), i, 3);
@@ -294,20 +294,17 @@ public class ConsultaVentas extends javax.swing.JFrame {
         modelo.addColumn("Numero de Venta");
         modelo.addColumn("Fecha de Emision");
         modelo.addColumn("Precio Total");
-        modelo.addColumn("Cliente");
         modelo.addColumn("Empleado");
         
         int i = 0;
         while(it.hasNext()){
             Venta aux = (Venta) it.next();
-            Cliente c_tmp = aux.getCliente();
             Usuario e_tmp = aux.getEmpleado();
             
-            modelo.setValueAt(aux.getNumVenta(), i, 0);
+            modelo.setValueAt(aux.getCodventa(), i, 0);
             modelo.setValueAt(aux.getFechaE(), i, 1);
             modelo.setValueAt(aux.getPrecioT(), i, 2);
-            modelo.setValueAt(c_tmp.getNombre()+" "+c_tmp.getApellido(), i, 3);
-            modelo.setValueAt(e_tmp.getNombre()+" "+e_tmp.getApellido(), i, 4);
+            modelo.setValueAt(e_tmp.getNombre()+" "+e_tmp.getApellido(), i, 3);
             i++;
         }
         tm = modelo;

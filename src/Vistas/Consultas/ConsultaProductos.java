@@ -144,10 +144,10 @@ public class ConsultaProductos extends javax.swing.JFrame {
         while(it.hasNext()){
             Producto tmp = (Producto) it.next();
             modelo.setValueAt("C "+tmp.getCodProducto(), row, 0);
-            modelo.setValueAt(tmp.getDescripcion(), row, 1);
+            modelo.setValueAt(tmp.getProducto(), row, 1);
             modelo.setValueAt(tmp.getPrecioUni(), row, 2);
             modelo.setValueAt(tmp.getStock(), row, 3);
-            modelo.setValueAt(tmp.getProveedor().getNombre(), row, 4);
+            modelo.setValueAt(tmp.getProveedor().getProveedor(), row, 4);
             row++;
         }
         tm = modelo;
