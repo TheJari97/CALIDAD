@@ -33,6 +33,7 @@ public class Usuario {
         this.cargo = cargo;
     }
 
+
     
     public int getIdusuario() {
         return idusuario;

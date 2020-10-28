@@ -7,7 +7,6 @@ package Vistas.Mantenimiento;
 
 import DAO.DAOCliente;
 import DAO.DAOEmpleado;
-import Entidades.Cliente;
 import Entidades.Usuario;
 
 /**
@@ -19,6 +18,11 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
     private int id;
     private String Nom_inicial;
     private String Ape_inicial;
+    private String Doc_ini;
+    private int edad_inicial;
+    private String tel_inicial;
+    private String pass_inicial;
+    
 
     public void setId(int id) {
         this.id = id;
@@ -32,6 +36,22 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
     public void setApe_inicial(String Ape_inicial) {
         this.Ape_inicial = Ape_inicial;
         load();
+    }
+
+    public void setDoc_ini(String Doc_ini) {
+        this.Doc_ini = Doc_ini;
+    }
+
+    public void setEdad_inicial(int edad_inicial) {
+        this.edad_inicial = edad_inicial;
+    }
+
+    public void setTel_inicial(String tel_inicial) {
+        this.tel_inicial = tel_inicial;
+    }
+
+    public void setPass_inicial(String pass_inicial) {
+        this.pass_inicial = pass_inicial;
     }
     
     /**
@@ -56,6 +76,14 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
         txtNnombre = new javax.swing.JTextField();
         txtNapellido = new javax.swing.JTextField();
         btnEnviar = new javax.swing.JButton();
+        txtnPass = new javax.swing.JTextField();
+        txtnTelefono = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtnDocumento = new javax.swing.JTextField();
+        txtnEdad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -86,6 +114,38 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
             }
         });
 
+        txtnPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnPassKeyTyped(evt);
+            }
+        });
+
+        txtnTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnTelefonoKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Documento:");
+
+        jLabel5.setText("Edad:");
+
+        jLabel6.setText("Telefono:");
+
+        jLabel7.setText("Password:");
+
+        txtnDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnDocumentoKeyTyped(evt);
+            }
+        });
+
+        txtnEdad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnEdadKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +165,27 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtNapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)))
+                        .addComponent(btnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(34, 34, 34)
+                                .addComponent(txtnEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtnTelefono))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtnDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,7 +204,23 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
                             .addComponent(txtNapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
                     .addComponent(btnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtnDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtnEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtnTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,15 +248,39 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnEnviarActionPerformed
 
+    private void txtnPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnPassKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnPassKeyTyped
+
+    private void txtnTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnTelefonoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnTelefonoKeyTyped
+
+    private void txtnDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnDocumentoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnDocumentoKeyTyped
+
+    private void txtnEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnEdadKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtnEdadKeyTyped
+
     private void load(){
         this.txtNnombre.setText(Nom_inicial);
         this.txtNapellido.setText(Ape_inicial);
+        this.txtnDocumento.setText(Doc_ini);
+        this.txtnEdad.setText(edad_inicial);
+        this.txtnTelefono.setText(tel_inicial);
+        this.txtnPass.setText(pass_inicial);
+        Integer.parseInt(txtnEdad)
     }
     private void actualizar(){
         DAOEmpleado dao = new DAOEmpleado();
         String nombre = txtNnombre.getText();
         String apellido=txtNapellido.getText();
-        
+        String docu=txtnDocumento.getText();
+        int edad=Integer.parseInt(txtnEdad.getText());
+        Strimg tel=txtnTelefono.getText();
+        String pass=txtnPass.getText();
         Usuario actu = new Usuario(id,nombre,apellido);
         dao.Editar(actu);
     }
@@ -205,7 +325,15 @@ public class ModificacionEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtNapellido;
     private javax.swing.JTextField txtNnombre;
+    private javax.swing.JTextField txtnDocumento;
+    private javax.swing.JTextField txtnEdad;
+    private javax.swing.JTextField txtnPass;
+    private javax.swing.JTextField txtnTelefono;
     // End of variables declaration//GEN-END:variables
 }

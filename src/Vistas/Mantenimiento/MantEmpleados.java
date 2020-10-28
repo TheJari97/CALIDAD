@@ -110,13 +110,13 @@ public class MantEmpleados extends javax.swing.JFrame {
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ));
         jScrollPane1.setViewportView(jTable);
@@ -309,14 +309,16 @@ public class MantEmpleados extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         DAOEmpleado dao = new DAOEmpleado();
+        DAOCargo c=new DAOCargo();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String docu=txtDocumento.getText();
         int e=Integer.parseInt(txtEdad.getText());
         String tel=txtTelefono.getText();
         String pass=txtPass.getText();
-        String car=cbxCARGO.getSelectedItem().toString();
-        Usuario nuevo = new Usuario(0, nombre, apellido,docu,e,tel,pass,car); // el id no importa
+        int car=cbxCARGO.getSelectedIndex()+1;
+        Cargo cargo = c.BuscarporID(car);
+        Usuario nuevo = new Usuario(0, nombre, apellido,docu,e,tel,pass,cargo); // el id no importa
         
         dao.Insertar(nuevo);
         ActualizarTabla();
@@ -341,7 +343,7 @@ public class MantEmpleados extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        DAOCliente dao = new DAOCliente();
+        DAOEmpleado dao = new DAOEmpleado();
         int fila = jTable.getSelectedRow();
         int id = (int) jTable.getValueAt(fila, 0);
         

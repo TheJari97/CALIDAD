@@ -50,7 +50,28 @@ public class DAOCargo extends Conexion implements ICRUDS<Cargo>{
 
     @Override
     public Cargo BuscarporID(int ID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        sql = "SELECT * FROM CARGO WHERE idcargo="+ID;
+        
+        try {
+            conex=getConexion();
+            pstm=conex.prepareStatement(sql);
+            rsset=pstm.executeQuery();
+            rsset.next();
+            
+            Cargo retorno = new Cargo(ID,rsset.getString("cargo"));
+            return retorno;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                conex.close();
+                pstm.close();;
+                pstm.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }      
+        return null;
     }
 
     @Override
