@@ -8,7 +8,8 @@ package Vistas.Mantenimiento;
 import DAO.DAOProducto;
 import DAO.DAOProveedor;
 import Entidades.Producto;
-import Entidades.Categoria;
+import Entidades.Proveedor;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -143,6 +144,12 @@ public final class MantProductos extends javax.swing.JFrame {
             }
         });
 
+        cbxProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProveedorActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Proveedor:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,9 +256,11 @@ public final class MantProductos extends javax.swing.JFrame {
         double precio = Double.parseDouble(txtPrecioUni.getText());
         int Stock = Integer.parseInt(txtStock.getText());
         String nomprove = cbxProveedor.getSelectedItem().toString();
-        Categoria prove =  daoP.BuscarporNombre(nomprove);
+        Proveedor prove =  daoP.BuscarporNombre(nomprove);
+        Date fecha = new Date();
+        SimpleDateFormat forFecha = new SimpleDateFormat("dd/MM/YYYY");
         
-        Producto p = new Producto(0, des, precio, Stock, prove);// no importa el idcliente
+        Producto p = new Producto(0, des, precio, Stock, prove, forFecha.format(fecha));// no importa el idcliente
         dao.Insertar(p);
         ActualizarTabla();
         bloqueo(false);
@@ -313,6 +322,10 @@ public final class MantProductos extends javax.swing.JFrame {
         ActualizarTabla();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxProveedorActionPerformed
+
     public void bloqueo(boolean estado){
         this.txtDescripcion.setText("");
         this.txtPrecioUni.setText("");
@@ -342,21 +355,21 @@ public final class MantProductos extends javax.swing.JFrame {
         while(it.hasNext()){
             Producto a = (Producto) it.next();
             modelo.setValueAt(a.getCodProducto(),i, 0);
-            modelo.setValueAt(a.getDescripcion(),i, 1);
+            modelo.setValueAt(a.getProducto(),i, 1);
             modelo.setValueAt(a.getPrecioUni(),i, 2);
             modelo.setValueAt(a.getStock(),i, 3);
-            modelo.setValueAt(a.getProveedor().getNombre(),i, 4);
+            modelo.setValueAt(a.getProveedor().getProveedor(),i, 4);
             i++;
         }
         this.jTable.setModel(modelo);
     }
     private void CargarProveedores(){
         DAOProveedor dao = new DAOProveedor();
-        List<Categoria> list = dao.Listar();
+        List<Proveedor> list = dao.Listar();
         Iterator it = list.iterator();
         while(it.hasNext()){
-            Categoria p = (Categoria) it.next();
-            this.cbxProveedor.addItem(p.getNombre());
+            Proveedor p = (Proveedor) it.next();
+            this.cbxProveedor.addItem(p.getProveedor());
         }
     }
     /**

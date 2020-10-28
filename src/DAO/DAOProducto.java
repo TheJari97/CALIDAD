@@ -6,7 +6,7 @@
 package DAO;
 
 import Entidades.Producto;
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import Utilidades.Conexion;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +22,10 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
 
     private String sql ;
     @Override
-    public void Insertar(Producto objetoT) {
-        String des=objetoT.getDescripcion();
-        double precio = objetoT.getPrecioUni();
-        int stck = objetoT.getStock();
-        int idProveedor = objetoT.getProveedor().getIdProveedor();
-        sql = "INSERT INTO PRODUCTO(descripcion,precioUni,Stock,idProveedor) VALUES (" + "'" + des + "'," + precio + "," + stck + "," + idProveedor + ")";
+    public void Insertar(Producto pro) {
+        sql = "INSERT INTO PRODUCTO(producto,precioUni,Stock,idProveedor,fecha) "
+                + "VALUES ('" + pro.getProducto() + "'," + pro.getPrecioUni() + 
+                "," + pro.getStock() + "," + pro.getProveedor().getIdproveedor() + ",'" + pro.getFecha() + "')";
         
         try {
             conex = getConexion();
@@ -46,18 +44,14 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     }
 
     @Override
-    public void Editar(Producto objetoT) {
-        int codProd = objetoT.getCodProducto();
-        String des=objetoT.getDescripcion();
-        double precio = objetoT.getPrecioUni();
-        int stck = objetoT.getStock();
-        int idProveedor = objetoT.getProveedor().getIdProveedor();
+    public void Editar(Producto pro) {
         sql = "UPDATE PRODUCTO SET "
-                + "descripcion='"+des+"',"
-                + "precioUni="+precio+","
-                + "Stock="+stck+","
-                + "idProveedor="+idProveedor+" "
-                + "WHERE codProducto="+codProd;
+                + "producto='"+pro.getProducto()+"',"
+                + "precioUni="+pro.getPrecioUni()+","
+                + "Stock="+pro.getStock()+","
+                + "fecha="+pro.getFecha()+","
+                + "idProveedor="+pro.getProveedor().getIdproveedor()+" "
+                + "WHERE codProducto="+pro.getCodProducto();
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -108,9 +102,9 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             String des=rsset.getString(2);
             double precio = rsset.getDouble(3);
             int stck = rsset.getInt(4);
-            Categoria p = new Categoria(rsset.getInt(5), rsset.getString(7));
+            Proveedor p = new Proveedor(rsset.getInt(7), rsset.getString(8));
             
-            Producto retorno = new Producto(ID,des,precio,stck,p);
+            Producto retorno = new Producto(rsset.getInt(1), rsset.getString(2), rsset.getFloat(3), rsset.getInt(4), p, rsset.getString(6));
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,7 +131,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             
             while(rsset.next()){
                 Producto n = new Producto (rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                        new Categoria(rsset.getInt(5), rsset.getString(7)));
+                        new Proveedor(rsset.getInt(7), rsset.getString(8)), rsset.getString(6));
                 lista.add(n);
             }
             return lista;
@@ -165,7 +159,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             rsset.next();
             
             Producto retorno = new Producto(rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                new Categoria(rsset.getInt(5), rsset.getString(7)));
+                        new Proveedor(rsset.getInt(7), rsset.getString(8)), rsset.getString(6));
             
             return retorno;
         } catch (SQLException | ClassNotFoundException ex) {

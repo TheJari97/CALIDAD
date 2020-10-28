@@ -1,28 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
-import Entidades.Categoria;
+import Entidades.Proveedor;
 import Utilidades.Conexion;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author reant
- */
-public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
+public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
 
     private String sql;
     @Override
-    public void Insertar(Categoria objetoT) {
-        sql = "INSERT INTO PROVEEDOR (Nombre) VALUES ";
-        sql = sql.concat("('"+objetoT.getNombre()+"')");
+    public void Insertar(Proveedor objetoT) {
+        sql = "INSERT INTO PROVEEDOR (proveedor) VALUES ";
+        sql = sql.concat("('"+objetoT.getProveedor()+"')");
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -32,7 +23,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
         }finally{
             try {
                 conex.close();
-                pstm.close();;
+                pstm.close();
                 pstm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,11 +32,11 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
     }
 
     @Override
-    public void Editar(Categoria objetoT) {
+    public void Editar(Proveedor objetoT) {
         try {
-            int idPro = objetoT.getIdProveedor();
-            String nombre = objetoT.getNombre();
-            sql = "UPDATE PROVEEDOR SET Nombre='"+nombre+"' WHERE idProveedor="+idPro;
+            int idPro = objetoT.getIdproveedor();
+            String nombre = objetoT.getProveedor();
+            sql = "UPDATE PROVEEDOR SET proveedor='"+nombre+"' WHERE idproveedor="+idPro;
             
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -65,7 +56,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
 
     @Override
     public void Eliminar(int ID) {
-        sql = "DELETE FROM PROVEEDOR WHERE idProveedor = "+ID;
+        sql = "DELETE FROM PROVEEDOR WHERE idproveedor = "+ID;
         
         try {
             conex=getConexion();
@@ -76,7 +67,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
         }finally{
             try {
                 conex.close();
-                pstm.close();;
+                pstm.close();
                 pstm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,8 +76,8 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
     }
 
     @Override
-    public Categoria BuscarporID(int ID) {
-        sql = "SELECT * FROM PROVEEDOR WHERE idProveedor="+ID;
+    public Proveedor BuscarporID(int ID) {
+        sql = "SELECT * FROM PROVEEDOR WHERE idproveedor="+ID;
         
         try {
             conex=getConexion();
@@ -94,7 +85,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
             rsset=pstm.executeQuery();
             rsset.next();
             
-            Categoria retorno = new Categoria(ID,rsset.getString("Nombre"));
+            Proveedor retorno = new Proveedor(ID,rsset.getString("proveedor"));
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,8 +101,8 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
         return null;
     }
 
-    public Categoria BuscarporNombre(String Nombre){
-        sql = "SELECT * FROM PROVEEDOR WHERE Nombre='"+Nombre+"'";
+    public Proveedor BuscarporNombre(String Nombre){
+        sql = "SELECT * FROM PROVEEDOR WHERE proveedor='"+Nombre+"'";
         
         try {
             conex=getConexion();
@@ -119,14 +110,14 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
             rsset=pstm.executeQuery();
             rsset.next();
             
-            Categoria retorno = new Categoria(rsset.getInt(1),Nombre);
+            Proveedor retorno = new Proveedor(rsset.getInt(1),Nombre);
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conex.close();
-                pstm.close();;
+                pstm.close();
                 pstm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,15 +127,15 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
         
     }
     @Override
-    public List<Categoria> Listar() {
+    public List<Proveedor> Listar() {
         sql = "SELECT * FROM PROVEEDOR";
-        List<Categoria> lista = new ArrayList<>();
+        List<Proveedor> lista = new ArrayList<>();
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             while(rsset.next()){
-                Categoria n = new Categoria (rsset.getInt(1),rsset.getString(2));
+                Proveedor n = new Proveedor (rsset.getInt(1),rsset.getString(2));
                 lista.add(n);
             }
             return lista;
@@ -153,7 +144,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
         }finally{
             try {
                 conex.close();
-                pstm.close();;
+                pstm.close();
                 pstm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,8 +6,7 @@
 package Vistas;
 
 import Vistas.Consultas.*;
-import Vistas.Mantenimiento.MantClientes;
-import Vistas.Mantenimiento.MantEmpleados;
+import Vistas.Mantenimiento.MantUsuarios;
 import Vistas.Mantenimiento.MantProductos;
 import Vistas.Mantenimiento.MantProveedores;
 import Vistas.Mantenimiento.MantVentas;
@@ -42,7 +41,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         iconFondo = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         menMantenimiento = new javax.swing.JMenu();
-        itemClientes = new javax.swing.JMenuItem();
         itemProductos = new javax.swing.JMenuItem();
         itemEmpleados = new javax.swing.JMenuItem();
         itemProveedores = new javax.swing.JMenuItem();
@@ -50,7 +48,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         menConsultas = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menIProveedores = new javax.swing.JMenuItem();
-        menIClientes = new javax.swing.JMenuItem();
         menIEmpleados = new javax.swing.JMenuItem();
         menIVentas = new javax.swing.JMenuItem();
         menUtilitarios = new javax.swing.JMenu();
@@ -67,15 +64,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         menMantenimiento.setText("Mantenimiento");
 
-        itemClientes.setText("de Clientes");
-        itemClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemClientesActionPerformed(evt);
-            }
-        });
-        menMantenimiento.add(itemClientes);
-
-        itemProductos.setText("de Productos");
+        itemProductos.setText("PRODUCTOS");
         itemProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemProductosActionPerformed(evt);
@@ -83,7 +72,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menMantenimiento.add(itemProductos);
 
-        itemEmpleados.setText("de Empleados");
+        itemEmpleados.setText("USUARIOS");
         itemEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemEmpleadosActionPerformed(evt);
@@ -91,7 +80,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menMantenimiento.add(itemEmpleados);
 
-        itemProveedores.setText("de Proveedores");
+        itemProveedores.setText("PROVEEDORES");
         itemProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemProveedoresActionPerformed(evt);
@@ -99,7 +88,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menMantenimiento.add(itemProveedores);
 
-        itemVentas.setText("de Ventas");
+        itemVentas.setText("VENTAS");
         itemVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemVentasActionPerformed(evt);
@@ -111,7 +100,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         menConsultas.setText("Consultas");
 
-        jMenuItem1.setText("de Productos");
+        jMenuItem1.setText("PRODUCTOS");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -119,7 +108,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menConsultas.add(jMenuItem1);
 
-        menIProveedores.setText("de Proveedores");
+        menIProveedores.setText("PROVEEDORES");
         menIProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menIProveedoresActionPerformed(evt);
@@ -127,15 +116,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menConsultas.add(menIProveedores);
 
-        menIClientes.setText("de Clientes");
-        menIClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menIClientesActionPerformed(evt);
-            }
-        });
-        menConsultas.add(menIClientes);
-
-        menIEmpleados.setText("de Empleados");
+        menIEmpleados.setText("USUARIOS");
         menIEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menIEmpleadosActionPerformed(evt);
@@ -143,7 +124,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menConsultas.add(menIEmpleados);
 
-        menIVentas.setText("de Ventas");
+        menIVentas.setText("VENTAS");
         menIVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menIVentasActionPerformed(evt);
@@ -155,7 +136,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         menUtilitarios.setText("Utilititarios");
 
-        itemCalculadora.setText("Calculadora");
+        itemCalculadora.setText("CALCULADORA");
         itemCalculadora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCalculadoraActionPerformed(evt);
@@ -163,7 +144,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menUtilitarios.add(itemCalculadora);
 
-        itemBlocNotas.setText("Bloc de Notas");
+        itemBlocNotas.setText("BLOCK DE NOTAS");
         itemBlocNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemBlocNotasActionPerformed(evt);
@@ -175,7 +156,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
         menSalir.setText("Salir");
 
-        itemCerrarSesion.setText("Cerrar Sesion");
+        itemCerrarSesion.setText("TERMINAR SESION");
         itemCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCerrarSesionActionPerformed(evt);
@@ -183,7 +164,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
         menSalir.add(itemCerrarSesion);
 
-        ItemSalir.setText("Finalizar Sistema");
+        ItemSalir.setText("CERRAR APLICATIVO");
         ItemSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ItemSalirActionPerformed(evt);
@@ -246,13 +227,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemBlocNotasActionPerformed
 
-    private void itemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemClientesActionPerformed
-        // TODO add your handling code here:
-        MantClientes ventana = new MantClientes();
-        ventana.setTitle("Mantenimiento de los Clientes");
-        ventana.setVisible(true);
-    }//GEN-LAST:event_itemClientesActionPerformed
-
     private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
         // TODO add your handling code here:
         MantProveedores mantproveedores = new MantProveedores();
@@ -262,7 +236,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
 
     private void itemEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEmpleadosActionPerformed
         // TODO add your handling code here:
-        MantEmpleados vent = new MantEmpleados();
+        MantUsuarios vent = new MantUsuarios();
         vent.setTitle("Mantenimiento de Empleados");
         vent.setVisible(true);
     }//GEN-LAST:event_itemEmpleadosActionPerformed
@@ -297,17 +271,9 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         n.setVisible(true);
     }//GEN-LAST:event_menIProveedoresActionPerformed
 
-    private void menIClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menIClientesActionPerformed
-        // TODO add your handling code here:
-        ConsultaClientes ventana = new ConsultaClientes();
-        ventana.setTitle("Consulta de los clientes");
-        ventana.setLocationRelativeTo(this);
-        ventana.setVisible(true);        
-    }//GEN-LAST:event_menIClientesActionPerformed
-
     private void menIEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menIEmpleadosActionPerformed
         // TODO add your handling code here:
-        ConsultaEmpleados ventana = new ConsultaEmpleados();
+        ConsultaUsuarios ventana = new ConsultaUsuarios();
         ventana.setTitle("Consulta de los clientes");
         ventana.setLocationRelativeTo(this);
         ventana.setVisible(true);        
@@ -364,7 +330,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemBlocNotas;
     private javax.swing.JMenuItem itemCalculadora;
     private javax.swing.JMenuItem itemCerrarSesion;
-    private javax.swing.JMenuItem itemClientes;
     private javax.swing.JMenuItem itemEmpleados;
     private javax.swing.JMenuItem itemProductos;
     private javax.swing.JMenuItem itemProveedores;
@@ -372,7 +337,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menConsultas;
-    private javax.swing.JMenuItem menIClientes;
     private javax.swing.JMenuItem menIEmpleados;
     private javax.swing.JMenuItem menIProveedores;
     private javax.swing.JMenuItem menIVentas;

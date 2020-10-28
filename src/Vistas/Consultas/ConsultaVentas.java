@@ -6,7 +6,7 @@
 package Vistas.Consultas;
 
 import DAO.DAOCliente;
-import DAO.DAOEmpleado;
+import DAO.DAOUsuarios;
 import DAO.DAOProducto;
 import DAO.DAOVentas;
 import Entidades.Cliente;

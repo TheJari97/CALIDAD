@@ -6,7 +6,7 @@
 package Vistas.Mantenimiento;
 
 import DAO.DAOCliente;
-import DAO.DAOEmpleado;
+import DAO.DAOUsuarios;
 import DAO.DAOProducto;
 import DAO.DAOVentas;
 import Entidades.Cliente;
@@ -370,7 +370,7 @@ public class MantVentas extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         DAOVentas dao = new DAOVentas();
         DAOCliente daoC = new DAOCliente();
-        DAOEmpleado daoE = new DAOEmpleado();        
+        DAOUsuarios daoE = new DAOUsuarios();        
         
         String nombreC;
         int separador;
@@ -468,7 +468,7 @@ public class MantVentas extends javax.swing.JFrame {
         }
     }
     private void CargarEmpleados(){
-        DAOEmpleado dao = new DAOEmpleado();
+        DAOUsuarios dao = new DAOUsuarios();
         List<Usuario> lista = dao.Listar();
         Iterator it=lista.iterator();
         while(it.hasNext()){
