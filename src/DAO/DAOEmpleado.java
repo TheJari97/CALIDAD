@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Entidades.Cargo;
 import Entidades.Usuario;
 import Utilidades.Conexion;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
@@ -23,7 +24,8 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
     @Override
     public void Insertar(Usuario objetoT) {
         try {
-            sql="INSERT INTO EMPLEADO (nombre,apellido) VALUES ('"+objetoT.getNombre()+"','"+objetoT.getApellido()+"')";
+            sql="INSERT INTO Usuario (nombre,apellido,documento,edad,telefono,password,cargo_id) VALUES ('"+objetoT.getNombre()+"','"+objetoT.getApellido()
+                    +"','"+objetoT.getDocumento()+"','"+objetoT.getEdad()+"','"+objetoT.getTelefono()+"','"+objetoT.getPassword()+"','"+objetoT.getCargo().getIdcargo()+"')";
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
@@ -43,10 +45,14 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
     @Override
     public void Editar(Usuario objetoT) {
         try {
-            sql="UPDATE EMPLEADO SET "
+            sql="UPDATE USUARIO SET "
                     + "nombre='"+objetoT.getNombre()+"',"
                     + "apellido='"+objetoT.getApellido()+"'"
-                    + " WHERE codEmpleado="+objetoT.getCodEmpleado();
+                    + "documento='"+objetoT.getDocumento()+"'"
+                    + "edad='"+objetoT.getEdad()+"'"
+                    + "telefono='"+objetoT.getTelefono()+"'"
+                    + "password='"+objetoT.getPassword()+"'"
+                    + " WHERE codEmpleado="+objetoT.getIdusuario();
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
@@ -67,8 +73,8 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
     @Override
     public void Eliminar(int ID) {
         try {
-            sql="DELETE FROM EMPLEADO WHERE "
-                    + "codEmpleado="+ID;
+            sql="DELETE FROM Usuario WHERE "
+                    + "idusaurio="+ID;
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
@@ -89,15 +95,16 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
     public Usuario BuscarporID(int ID) {
         try {
             Usuario emp = null;
-            sql="SELECT * FROM EMPLEADO WHERE codEmpleado="+ID;
+            sql="SELECT * FROM Usuario WHERE codEmpleado="+ID;
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             
             rsset.next();
-            emp = new Usuario(ID, rsset.getString("nombre") , rsset.getString("apellido"));
-            
+            emp = new Usuario(ID,rsset.getString("nombre") , rsset.getString("apellido"), rsset.getString("documento"), 
+                    rsset.getInt("edad"), rsset.getString("telefono"), rsset.getString("password"), (Cargo) rsset.getObject("cargo_id"));
+     
             return emp;
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DAOEmpleado.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,7 +122,7 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
     
     public Usuario BuscarporNombre(String Nombre, String Apellido) {
         try {
-            sql="SELECT * FROM EMPLEADO WHERE nombre='"+Nombre+"' AND apellido='"+Apellido+"'";
+            sql="SELECT * FROM USUrio WHERE nombre='"+Nombre+"' AND apellido='"+Apellido+"'";
             
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -123,7 +130,7 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
             
             Usuario temp = null;
             while(rsset.next()){
-                 temp = new Usuario(rsset.getInt(1), Nombre, Apellido);
+                temp = new Usuario(rsset.getInt(1), Nombre, Apellido);
             }
             return temp;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -150,7 +157,8 @@ public class DAOEmpleado extends Conexion implements ICRUDS<Usuario>{
             pstm= conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             while(rsset.next()){
-                Usuario aux = new Usuario(rsset.getInt(1), rsset.getString(2), rsset.getString(3));
+                Usuario aux = new Usuario(rsset.getInt(1), rsset.getString(2), rsset.getString(3),rsset.getString(4),
+                        rsset.getInt(5),rsset.getString(6),rsset.getString(7), (Cargo) rsset.getObject(8));
                 lista.add(aux);
             }
             return lista;

@@ -17,11 +17,12 @@ public class Usuario {
     private int edad;
     private String telefono;
     private String password;
+    private Cargo cargo;
 
     public Usuario() {
     }
 
-    public Usuario(int idusuario, String nombre, String apellido, String documento, int edad, String telefono, String password) {
+    public Usuario(int idusuario, String nombre, String apellido, String documento, int edad, String telefono, String password, Cargo cargo) {
         this.idusuario = idusuario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,8 +30,10 @@ public class Usuario {
         this.edad = edad;
         this.telefono = telefono;
         this.password = password;
+        this.cargo = cargo;
     }
 
+    
     public int getIdusuario() {
         return idusuario;
     }
@@ -86,4 +89,13 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+    
 }

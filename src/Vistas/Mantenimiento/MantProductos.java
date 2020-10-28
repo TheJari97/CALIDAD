@@ -143,6 +143,12 @@ public final class MantProductos extends javax.swing.JFrame {
             }
         });
 
+        cbxProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxProveedorActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Proveedor:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -312,6 +318,10 @@ public final class MantProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         ActualizarTabla();
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void cbxProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProveedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxProveedorActionPerformed
 
     public void bloqueo(boolean estado){
         this.txtDescripcion.setText("");

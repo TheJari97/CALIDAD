@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Entidades.Proveedor;
+import Entidades.Categoria;
 import Utilidades.Conexion;
 import java.sql.*;
 import java.util.*;
@@ -16,13 +16,13 @@ import java.util.logging.Logger;
  *
  * @author reant
  */
-public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
+public class DAOProveedor extends Conexion implements ICRUDS<Categoria>{
 
     private String sql;
     @Override
-    public void Insertar(Proveedor objetoT) {
-        sql = "INSERT INTO PROVEEDOR (proveedor) VALUES ";
-        sql = sql.concat("('"+objetoT.getProveedor()+"')");
+    public void Insertar(Categoria objetoT) {
+        sql = "INSERT INTO PROVEEDOR (Nombre) VALUES ";
+        sql = sql.concat("('"+objetoT.getNombre()+"')");
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -41,11 +41,11 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
     }
 
     @Override
-    public void Editar(Proveedor objetoT) {
+    public void Editar(Categoria objetoT) {
         try {
             int idPro = objetoT.getIdProveedor();
-            String nombre = objetoT.getProveedor();
-            sql = "UPDATE PROVEEDOR SET proveedor='"+nombre+"' WHERE idProveedor="+idPro;
+            String nombre = objetoT.getNombre();
+            sql = "UPDATE PROVEEDOR SET Nombre='"+nombre+"' WHERE idProveedor="+idPro;
             
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -85,7 +85,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
     }
 
     @Override
-    public Proveedor BuscarporID(int ID) {
+    public Categoria BuscarporID(int ID) {
         sql = "SELECT * FROM PROVEEDOR WHERE idProveedor="+ID;
         
         try {
@@ -94,7 +94,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
             rsset=pstm.executeQuery();
             rsset.next();
             
-            Proveedor retorno = new Proveedor(ID,rsset.getString("Nombre"));
+            Categoria retorno = new Categoria(ID,rsset.getString("Nombre"));
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,8 +110,8 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
         return null;
     }
 
-    public Proveedor BuscarporNombre(String Nombre){
-        sql = "SELECT * FROM PROVEEDOR WHERE proveedor='"+Nombre+"'";
+    public Categoria BuscarporNombre(String Nombre){
+        sql = "SELECT * FROM PROVEEDOR WHERE Nombre='"+Nombre+"'";
         
         try {
             conex=getConexion();
@@ -119,7 +119,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
             rsset=pstm.executeQuery();
             rsset.next();
             
-            Proveedor retorno = new Proveedor(rsset.getInt(1),Nombre);
+            Categoria retorno = new Categoria(rsset.getInt(1),Nombre);
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,15 +136,15 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
         
     }
     @Override
-    public List<Proveedor> Listar() {
+    public List<Categoria> Listar() {
         sql = "SELECT * FROM PROVEEDOR";
-        List<Proveedor> lista = new ArrayList<>();
+        List<Categoria> lista = new ArrayList<>();
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             while(rsset.next()){
-                Proveedor n = new Proveedor (rsset.getInt(1),rsset.getString(2));
+                Categoria n = new Categoria (rsset.getInt(1),rsset.getString(2));
                 lista.add(n);
             }
             return lista;
