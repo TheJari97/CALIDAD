@@ -1,4 +1,3 @@
-
 package Entidades;
 
 public class Proveedor {
@@ -28,5 +27,4 @@ public class Proveedor {
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
     }
-    
 }

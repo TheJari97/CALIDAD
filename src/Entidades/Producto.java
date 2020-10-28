@@ -70,4 +70,9 @@ public class Producto {
         this.fecha = fecha;
     }
     
+    public void verDatos(){
+        System.out.println("codProducto"+codProducto+"  Precio:"+precioUni+"Stock :"+Stock
+                + "id Proveedor:"+proveedor.getIdproveedor()+"-"+proveedor.getProveedor()+" Fecha:"+fecha);
+    }
+    
 }

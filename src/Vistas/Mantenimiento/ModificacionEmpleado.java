@@ -6,7 +6,11 @@
 package Vistas.Mantenimiento;
 
 import DAO.DAOCliente;
+<<<<<<< HEAD
 import DAO.DAOUsuarios;
+=======
+import DAO.DAOEmpleado;
+>>>>>>> b0fc0617de37c5e527783c85be19341791641c2f
 import Entidades.Usuario;
 
 /**

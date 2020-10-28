@@ -7,7 +7,11 @@ package Vistas.Mantenimiento;
 
 import DAO.DAOCargo;
 import DAO.DAOCliente;
+<<<<<<< HEAD:src/Vistas/Mantenimiento/MantUsuarios.java
 import DAO.DAOUsuarios;
+=======
+import DAO.DAOEmpleado;
+>>>>>>> b0fc0617de37c5e527783c85be19341791641c2f:src/Vistas/Mantenimiento/MantEmpleados.java
 import Entidades.Cargo;
 import Entidades.Usuario;
 import java.util.*;
@@ -308,7 +312,11 @@ public class MantUsuarios extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD:src/Vistas/Mantenimiento/MantUsuarios.java
         DAOUsuarios dao = new DAOUsuarios();
+=======
+        DAOEmpleado dao = new DAOEmpleado();
+>>>>>>> b0fc0617de37c5e527783c85be19341791641c2f:src/Vistas/Mantenimiento/MantEmpleados.java
         DAOCargo c=new DAOCargo();
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
@@ -343,7 +351,11 @@ public class MantUsuarios extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD:src/Vistas/Mantenimiento/MantUsuarios.java
         DAOUsuarios dao = new DAOUsuarios();
+=======
+        DAOEmpleado dao = new DAOEmpleado();
+>>>>>>> b0fc0617de37c5e527783c85be19341791641c2f:src/Vistas/Mantenimiento/MantEmpleados.java
         int fila = jTable.getSelectedRow();
         int id = (int) jTable.getValueAt(fila, 0);
         
