@@ -65,9 +65,9 @@ public class MantUsuarios extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtDocumento = new javax.swing.JTextField();
         txtEdad = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         cbxCARGO = new javax.swing.JComboBox<>();
+        txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -169,22 +169,26 @@ public class MantUsuarios extends javax.swing.JFrame {
             }
         });
 
-        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPassKeyTyped(evt);
-            }
-        });
-
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTelefonoKeyTyped(evt);
             }
         });
 
-        cbxCARGO.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxCARGO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxCARGOActionPerformed(evt);
+            }
+        });
+
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPassKeyTyped(evt);
             }
         });
 
@@ -215,35 +219,36 @@ public class MantUsuarios extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtApellido))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(34, 34, 34)
-                                .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTelefono))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDocumento)
-                                .addGap(15, 15, 15))
+                                .addComponent(txtDocumento))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPass)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cbxCARGO, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtPass)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtTelefono))))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGuardar))
                         .addGap(10, 10, 10)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -314,6 +319,7 @@ public class MantUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         DAOUsuarios dao = new DAOUsuarios();
         DAOCargo c=new DAOCargo();
+        
         String nombre = txtNombre.getText();
         String apellido = txtApellido.getText();
         String docu=txtDocumento.getText();
@@ -377,31 +383,58 @@ public class MantUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
-        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9')){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtDocumentoKeyTyped
 
     private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped
-        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9')){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtEdadKeyTyped
 
-    private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassKeyTyped
-
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9')){
+            evt.consume();
+        }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void cbxCARGOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCARGOActionPerformed
        
     }//GEN-LAST:event_cbxCARGOActionPerformed
 
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActionPerformed
+
+    private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z')&&(c<'A' || c>'Z')&&(c < '0' || c > '9')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPassKeyTyped
+
     public void bloqueo(boolean estado){
         this.txtNombre.setText("");
         this.txtApellido.setText("");
+        this.txtDocumento.setText("");
+        this.txtEdad.setText("");
+        this.txtEdad.setText("");
+        this.txtEdad.setText("");
+        this.txtTelefono.setText("");
+        this.txtPass.setText("");
+
         
         this.txtNombre.setEnabled(estado);
         this.txtApellido.setEnabled(estado);
+        this.txtDocumento.setEnabled(estado);
+        this.txtEdad.setEnabled(estado);
+        this.txtTelefono.setEnabled(estado);
+        this.txtPass.setEnabled(estado);
         
         this.btnGuardar.setEnabled(estado);
         this.btnCancelar.setEnabled(estado);
@@ -419,7 +452,7 @@ public class MantUsuarios extends javax.swing.JFrame {
         modelo.addColumn("Edad");
         modelo.addColumn("Telefono");
         modelo.addColumn("Password");
-        modelo.addColumn("Cargo");
+        //modelo.addColumn("Cargo");
         
         
         Iterator it = lista.iterator();
@@ -433,7 +466,7 @@ public class MantUsuarios extends javax.swing.JFrame {
             modelo.setValueAt(a.getEdad(),i, 4);
             modelo.setValueAt(a.getTelefono(),i, 5);
             modelo.setValueAt(a.getPassword(),i, 6);
-            modelo.setValueAt(a.getCargo().getCargo(),i, 7);
+            //modelo.setValueAt(a.getCargo().getCargo(),i, 7);
             i++;
         }
         this.jTable.setModel(modelo);
@@ -511,7 +544,7 @@ public class MantUsuarios extends javax.swing.JFrame {
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

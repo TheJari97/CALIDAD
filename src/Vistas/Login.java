@@ -71,6 +71,11 @@ public class Login extends javax.swing.JFrame {
         lblUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconUsuario.png"))); // NOI18N
         lblUser.setText("Usuario:");
 
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActionPerformed(evt);
+            }
+        });
         txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtContraseñaKeyPressed(evt);
@@ -131,6 +136,10 @@ public class Login extends javax.swing.JFrame {
         if(evt.getKeyCode() ==  KeyEvent.VK_ENTER)
             InicioSesion();
     }//GEN-LAST:event_txtContraseñaKeyPressed
+
+    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaActionPerformed
 
     private void InicioSesion(){
         try{

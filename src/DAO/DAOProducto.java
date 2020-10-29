@@ -23,10 +23,9 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     private String sql ;
     @Override
     public void Insertar(Producto pro) {
-        sql = "INSERT INTO PRODUCTO(producto,precioUni,Stock,idProveedor,fecha) "
-                + "VALUES ('" + pro.getProducto() + "'," + pro.getPrecioUni() + 
-                "," + pro.getStock() + "," + pro.getProveedor().getIdproveedor() + ",'" + pro.getFecha() + "')";
-        
+        sql = "INSERT INTO producto(proveedor_id,nombre,precio,cantidad,estado,fecha)"
+                + "VALUES ('" + 1 + "'," + pro.getProducto() + "'," + pro.getPrecioUni() + 
+                "," + pro.getStock() + "," + 1 + "," + pro.getFecha() + "')";
         try {
             conex = getConexion();
             pstm = conex.prepareStatement(sql);
@@ -51,7 +50,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
                 + "Stock="+pro.getStock()+","
                 + "fecha="+pro.getFecha()+","
                 + "idProveedor="+pro.getProveedor().getIdproveedor()+" "
-                + "WHERE codProducto="+pro.getCodProducto();
+                + "WHERE idproducto="+pro.getCodProducto();
         try {
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -122,7 +121,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
 
     @Override
     public List<Producto> Listar() {
-        sql = "SELECT * FROM PRODUCTO p INNER JOIN PROVEEDOR pr	ON p.idProveedor=pr.idProveedor";
+        sql = "SELECT * FROM PRODUCTO ";
         List<Producto> lista = new ArrayList<>();
         try {
             conex=getConexion();
@@ -130,8 +129,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             rsset=pstm.executeQuery();
             
             while(rsset.next()){
-                Producto n = new Producto (rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                        new Proveedor(rsset.getInt(7), rsset.getString(8)), rsset.getString(6));
+                Producto n = new Producto(rsset.getInt(1),rsset.getString(3), rsset.getDouble(4), rsset.getInt(5), null, rsset.getString(7));
                 lista.add(n);
             }
             return lista;

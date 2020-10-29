@@ -117,7 +117,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
 
     @Override
     public Venta BuscarporID(int ID) {
-        DAOCliente dao_c = new DAOCliente();
+        //DAOCliente dao_c = new DAOCliente();
         DAOUsuarios dao_e = new DAOUsuarios();
         try {
             sql = "SELECT * FROM VENTA WHERE idventa="+ID;
@@ -125,18 +125,18 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             
-            Cliente nc;
+           // Cliente nc;
             Usuario ne;
             Venta ven = null;
             
             while(rsset.next()){
                 int numventa = rsset.getInt(1);
                 String fechaE = rsset.getString(3);
-                nc = dao_c.BuscarporID(rsset.getInt(4));
+             //   nc = dao_c.BuscarporID(rsset.getInt(4));
                 ne = dao_e.BuscarporID(rsset.getInt(5));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
-                ven = new Venta(numventa, fechaE, compras, nc, ne);                
+               // ven = new Venta(numventa,null, fechaE, compras,null, ne,null,null);                
             }
             return ven;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -155,10 +155,10 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
 
     @Override
     public List<Venta> Listar() {
-        DAOCliente dao_c = new DAOCliente();
+        //DAOCliente dao_c = new DAOCliente();
         DAOUsuarios dao_e = new DAOUsuarios();
         
-        Cliente nc = null;
+        //Cliente nc = null;
         Usuario ne=null;
         List<Venta> lista = new ArrayList<>();
         
@@ -171,12 +171,12 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             while(rsset.next()){
                 int numventa = rsset.getInt(1);
                 String fechaE = rsset.getString(3);
-                nc = dao_c.BuscarporID(rsset.getInt(4));
+                //nc = dao_c.BuscarporID(rsset.getInt(4));
                 ne = dao_e.BuscarporID(rsset.getInt(5));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
                 
-                Venta ven = new Venta(numventa, fechaE, compras, nc, ne);
+                Venta ven = new Venta();
                 lista.add(ven);
             }
             return lista;
@@ -208,8 +208,8 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
                 set = ps.executeQuery();
                 
                 while(set.next()){
-                    DET_Venta aux = new DET_Venta( daoP.BuscarporID(set.getInt(2)) , set.getInt(3));
-                    lista.add(aux);
+                    /*DET_Venta aux = new DET_Venta( daoP.BuscarporID(set.getInt(2)) , set.getInt(3));
+                    lista.add(aux);*/
                 }
                 return lista;
             } catch (SQLException ex) {

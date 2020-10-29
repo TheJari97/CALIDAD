@@ -18,7 +18,7 @@ public class DAOLogin extends Conexion{
     public List<String> listUsuarios() throws ClassNotFoundException, SQLException{
         List<String> lista = new ArrayList<>();
         conex = getConexion();
-        pstm = conex.prepareStatement("SELECT usuario FROM LOGIN");
+        pstm = conex.prepareStatement("SELECT nombre FROM usuario");
         rsset = pstm.executeQuery();
         
         while(rsset.next()){
@@ -34,10 +34,10 @@ public class DAOLogin extends Conexion{
         String contra = null;
         try {
             conex = getConexion();
-            pstm = conex.prepareStatement("SELECT * FROM LOGIN WHERE usuario = '"+usuario+"'");
+            pstm = conex.prepareStatement("SELECT * FROM usuario WHERE nombre = '"+usuario+"'");
             rsset = pstm.executeQuery();
             while(rsset.next()){
-                contra = rsset.getString("contrasenia");
+                contra = rsset.getString("password");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOLogin.class.getName()).log(Level.SEVERE, null, ex);

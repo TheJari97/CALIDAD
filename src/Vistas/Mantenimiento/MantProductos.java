@@ -11,6 +11,7 @@ import Entidades.Producto;
 import Entidades.Proveedor;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -164,8 +165,10 @@ public final class MantProductos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtStock)
@@ -225,8 +228,8 @@ public final class MantProductos extends javax.swing.JFrame {
                             .addComponent(cbxProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
                     .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
@@ -252,24 +255,39 @@ public final class MantProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         DAOProducto dao = new DAOProducto();
         DAOProveedor daoP = new DAOProveedor();
-        String des = txtDescripcion.getText();
-        double precio = Double.parseDouble(txtPrecioUni.getText());
-        int Stock = Integer.parseInt(txtStock.getText());
-        String nomprove = cbxProveedor.getSelectedItem().toString();
-        Proveedor prove =  daoP.BuscarporNombre(nomprove);
-        Date fecha = new Date();
-        SimpleDateFormat forFecha = new SimpleDateFormat("dd/MM/YYYY");
         
-        Producto p = new Producto(0, des, precio, Stock, prove, forFecha.format(fecha));// no importa el idcliente
-        dao.Insertar(p);
+        
+        if(txtDescripcion.getText().length()==0 || txtPrecioUni.getText().length()==0 || txtStock.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
+        }else if(txtDescripcion.getText().length()<3){
+            JOptionPane.showMessageDialog(null, "La descripcion no puede ser muy corta.");
+        }else if(txtDescripcion.getText().length()>30){
+            JOptionPane.showMessageDialog(null, "La descripcion no puede exeder los 30 caracteres.");
+        }else if(Double.parseDouble(txtPrecioUni.getText())==0 || Integer.parseInt(txtStock.getText())==0){
+            JOptionPane.showMessageDialog(null, "No se aceptan valores nulos.");
+        }else if(Integer.parseInt(txtStock.getText())>=1000){
+            JOptionPane.showMessageDialog(null, "El stock no puede superar las 1000 unidades.");
+        }else{
+            String des = txtDescripcion.getText();
+             double precio = Double.parseDouble(txtPrecioUni.getText());
+            int Stock = Integer.parseInt(txtStock.getText());
+            String nomprove = cbxProveedor.getSelectedItem().toString();
+            Proveedor prove =  daoP.BuscarporNombre(nomprove);
+            Date fecha = new Date();
+            String fechap="20/10/28";
+            SimpleDateFormat forFecha = new SimpleDateFormat("dd/MM/YYYY");
+            Producto p = new Producto(0, des, precio, Stock, prove, fechap);
+            dao.Insertar(p);
+            bloqueo(false);   
+        }
+        
         ActualizarTabla();
-        bloqueo(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if((c<'a' || c>'z')&&(c<'A' || c>'Z')&&(c < ' ' || c > ' ')){
+        if((c<'a' || c>'z')&&(c<'A' || c>'Z')&&(c < ' ' || c > ' ')&&(c < '0' || c > '9')){
             evt.consume();
         }
     }//GEN-LAST:event_txtDescripcionKeyTyped
@@ -348,7 +366,7 @@ public final class MantProductos extends javax.swing.JFrame {
         modelo.addColumn("Descripcion");
         modelo.addColumn("Precio Unitario");
         modelo.addColumn("Stock Disponible");
-        modelo.addColumn("Proveedor");
+        modelo.addColumn("Fecha");
         
         Iterator it = lista.iterator();
         int i=0;
@@ -358,7 +376,8 @@ public final class MantProductos extends javax.swing.JFrame {
             modelo.setValueAt(a.getProducto(),i, 1);
             modelo.setValueAt(a.getPrecioUni(),i, 2);
             modelo.setValueAt(a.getStock(),i, 3);
-            modelo.setValueAt(a.getProveedor().getProveedor(),i, 4);
+            //modelo.setValueAt(a.getProveedor().getProveedor(),i, 4);
+            modelo.setValueAt(a.getFecha(),i, 4);
             i++;
         }
         this.jTable.setModel(modelo);

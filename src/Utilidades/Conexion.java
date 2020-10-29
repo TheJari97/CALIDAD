@@ -19,6 +19,6 @@ public class Conexion {
     
     protected Connection getConexion() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto?serverTimezone=UTC", "root", "12345678");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/Proyecto?serverTimezone=UTC", "root", "12345678");
     }
 }

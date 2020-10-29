@@ -151,14 +151,14 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
     public List<Usuario> Listar() {
         try {
             List<Usuario> lista = new ArrayList<>();
-            sql="SELECT * FROM EMPLEADO";
+            sql="SELECT * FROM Usuario";
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             while(rsset.next()){
                 Usuario aux = new Usuario(rsset.getInt(1), rsset.getString(2), rsset.getString(3),rsset.getString(4),
-                        rsset.getInt(5),rsset.getString(6),rsset.getString(7), (Cargo) rsset.getObject(8));
+                        rsset.getInt(5),rsset.getString(6),rsset.getString(7), null);
                 lista.add(aux);
             }
             return lista;
