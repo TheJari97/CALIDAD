@@ -76,7 +76,7 @@ public class DAOCargo extends Conexion implements ICRUDS<Cargo>{
 
     @Override
     public List<Cargo> Listar() {
-        sql = "SELECT * FROM Cargo";
+        sql = "SELECT * FROM Cargo order by idcargo ASC";
         List<Cargo> lista = new ArrayList<>();
         try {
             conex=getConexion();

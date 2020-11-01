@@ -316,23 +316,45 @@ public class MantUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
         DAOUsuarios dao = new DAOUsuarios();
         DAOCargo c=new DAOCargo();
-        
-        String nombre = txtNombre.getText();
-        String apellido = txtApellido.getText();
-        String docu=txtDocumento.getText();
-        int e=Integer.parseInt(txtEdad.getText());
-        String tel=txtTelefono.getText();
-        String pass=txtPass.getText();
-        int car=cbxCARGO.getSelectedIndex()+1;
-        Cargo cargo = c.BuscarporID(car);
-        Usuario nuevo = new Usuario(0, nombre, apellido,docu,e,tel,pass,cargo); // el id no importa
-        
-        dao.Insertar(nuevo);
+        if(txtNombre.getText().length()==0 || txtApellido.getText().length()==0 || txtEdad.getText().length()==0|| txtDocumento.getText().length()==0|| txtTelefono.getText().length()==0|| txtPass.getText().length()==0){
+             JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
+        }else if(txtNombre.getText().length()<3 ){
+             JOptionPane.showMessageDialog(null, "El nombre no puede ser muy corto");
+        }else if(txtNombre.getText().length()>10 ){
+             JOptionPane.showMessageDialog(null, "El nombre es muy largo");
+        }else if(txtApellido.getText().length()<3 ){
+             JOptionPane.showMessageDialog(null, "El apellido no puede ser muy corto");
+        }else if(txtApellido.getText().length()>20 ){
+             JOptionPane.showMessageDialog(null, "El apellido es muy largo");
+        }else if(txtDocumento.getText().length()!=8 ){
+             JOptionPane.showMessageDialog(null, "Solo se acepta 8 numeros en el DNI");
+        }else if(Integer.parseInt(txtEdad.getText())<18){
+             JOptionPane.showMessageDialog(null, "La edad no puede ser menor a 18 años");
+        }else if(Integer.parseInt(txtEdad.getText())>59 ){
+             JOptionPane.showMessageDialog(null, "La edad no puede exeder los 60 años");
+        }else if(txtTelefono.getText().length()!=9){
+             JOptionPane.showMessageDialog(null, "El telefono es incorrecto");
+        }else if(txtPass.getText().length()>15){
+             JOptionPane.showMessageDialog(null, "La contraseña no puede ser muy larga");
+        }else if(txtPass.getText().length()<6){
+             JOptionPane.showMessageDialog(null, "La contraseña no puede ser muy corta");
+        }else{
+           String nombre = txtNombre.getText();
+           String apellido = txtApellido.getText();
+           String docu=txtDocumento.getText();
+           int e=Integer.parseInt(txtEdad.getText());
+           String tel=txtTelefono.getText();
+           String pass=txtPass.getText();
+           int car=cbxCARGO.getSelectedIndex()+1;
+           Cargo cargo = c.BuscarporID(car);
+           Usuario nuevo = new Usuario(0, nombre, apellido,docu,e,tel,pass,cargo); // el id no importa
+           dao.Insertar(nuevo);
+           bloqueo(false);
+        }
         ActualizarTabla();
-        bloqueo(false);
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
@@ -367,11 +389,19 @@ public class MantUsuarios extends javax.swing.JFrame {
         int id = (int) jTable.getValueAt(fila, 0);
         String nom = (String) jTable.getValueAt(fila, 1);
         String ape = (String) jTable.getValueAt(fila, 2);
+        String docu =(String) jTable.getValueAt(fila, 3);
+        int ed=  (int) jTable.getValueAt(fila, 4);
+        String tel=(String) jTable.getValueAt(fila, 5);
+        String pass =(String) jTable.getValueAt(fila, 6);
         
         mod.setLocationRelativeTo(this);
         mod.setId(id);
         mod.setNom_inicial(nom);
         mod.setApe_inicial(ape);
+        mod.setDoc_ini(docu);
+        mod.setEdad_inicial(ed);
+        mod.setTel_inicial(tel);
+        mod.setPass_inicial(pass);
         mod.setVisible(true);
         
         ActualizarTabla();
@@ -452,7 +482,7 @@ public class MantUsuarios extends javax.swing.JFrame {
         modelo.addColumn("Edad");
         modelo.addColumn("Telefono");
         modelo.addColumn("Password");
-        //modelo.addColumn("Cargo");
+        modelo.addColumn("Cargo");
         
         
         Iterator it = lista.iterator();

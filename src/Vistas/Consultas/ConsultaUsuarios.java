@@ -119,6 +119,10 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido");
+        modelo.addColumn("Documento");
+        modelo.addColumn("Edad");
+        modelo.addColumn("Telefono");
+        modelo.addColumn("Password");
         
         Iterator it = list.iterator();
         int row = 0;
@@ -127,6 +131,10 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
             modelo.setValueAt("E"+tmp.getIdusuario(), row, 0);
             modelo.setValueAt(tmp.getNombre(), row, 1);
             modelo.setValueAt(tmp.getApellido(), row, 2);
+            modelo.setValueAt(tmp.getDocumento(), row, 3);
+            modelo.setValueAt(tmp.getEdad(), row, 4);
+            modelo.setValueAt(tmp.getTelefono(), row, 5);
+            modelo.setValueAt(tmp.getPassword(), row, 6);
             row++;
         }
         tm = modelo;

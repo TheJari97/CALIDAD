@@ -47,13 +47,13 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
         try {
             sql="UPDATE USUARIO SET "
                     + "nombre='"+objetoT.getNombre()+"',"
-                    + "apellido='"+objetoT.getApellido()+"'"
-                    + "documento='"+objetoT.getDocumento()+"'"
-                    + "edad='"+objetoT.getEdad()+"'"
-                    + "telefono='"+objetoT.getTelefono()+"'"
-                    + "password='"+objetoT.getPassword()+"'"
-                    + " WHERE codEmpleado="+objetoT.getIdusuario();
-            
+                    + "apellido='"+objetoT.getApellido()+"',"
+                    + "documento='"+objetoT.getDocumento()+"',"
+                    + "edad='"+objetoT.getEdad()+"',"
+                    + "telefono='"+objetoT.getTelefono()+"',"
+                    + "password='"+objetoT.getPassword()+"',"
+                    + "cargo_id='"+objetoT.getCargo().getIdcargo()+"'"
+                    + " WHERE idusuario="+objetoT.getIdusuario();
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
             pstm.executeUpdate();
@@ -73,8 +73,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
     @Override
     public void Eliminar(int ID) {
         try {
-            sql="DELETE FROM Usuario WHERE "
-                    + "idusaurio="+ID;
+            sql="DELETE FROM Usuario WHERE idusuario="+ID;
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
@@ -95,7 +94,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
     public Usuario BuscarporID(int ID) {
         try {
             Usuario emp = null;
-            sql="SELECT * FROM Usuario WHERE codEmpleado="+ID;
+            sql="SELECT * FROM Usuario WHERE idusuario="+ID;
             
             conex=getConexion();
             pstm= conex.prepareStatement(sql);
@@ -103,7 +102,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
             
             rsset.next();
             emp = new Usuario(ID,rsset.getString("nombre") , rsset.getString("apellido"), rsset.getString("documento"), 
-                    rsset.getInt("edad"), rsset.getString("telefono"), rsset.getString("password"), (Cargo) rsset.getObject("cargo_id"));
+                    rsset.getInt("edad"), rsset.getString("telefono"), rsset.getString("password"), /*(Cargo) rsset.getObject("cargo_id")*/ null);
      
             return emp;
         } catch (SQLException | ClassNotFoundException ex) {

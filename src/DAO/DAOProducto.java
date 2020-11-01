@@ -70,7 +70,7 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
 
     @Override
     public void Eliminar(int ID) {
-        sql = "DELETE FROM PRODUCTO WHERE codProducto = "+ID;
+        sql = "DELETE FROM PRODUCTO WHERE idproducto= "+ID;
         
         try {
             conex=getConexion();
