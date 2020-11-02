@@ -39,7 +39,7 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Consulta de los proveedores registrados");
+        jLabel1.setText("Consulta de los Usuarios registrados");
 
         jLabel2.setText("Filtro:");
 
@@ -76,8 +76,8 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -123,6 +123,7 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
         modelo.addColumn("Edad");
         modelo.addColumn("Telefono");
         modelo.addColumn("Password");
+        modelo.addColumn("Cargo");
         
         Iterator it = list.iterator();
         int row = 0;
@@ -135,6 +136,7 @@ public class ConsultaUsuarios extends javax.swing.JFrame {
             modelo.setValueAt(tmp.getEdad(), row, 4);
             modelo.setValueAt(tmp.getTelefono(), row, 5);
             modelo.setValueAt(tmp.getPassword(), row, 6);
+            modelo.setValueAt(tmp.getCargo().getCargo(), row, 7);
             row++;
         }
         tm = modelo;

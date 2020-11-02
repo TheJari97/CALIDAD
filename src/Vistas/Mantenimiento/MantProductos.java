@@ -255,8 +255,11 @@ public final class MantProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
         DAOProducto dao = new DAOProducto();
         DAOProveedor daoP = new DAOProveedor();
-        
-        
+        Calendar c1= Calendar.getInstance();
+        Calendar c = new GregorianCalendar();
+        String dia = Integer.toString(c.get(Calendar.DATE));
+        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String año = Integer.toString(c.get(Calendar.YEAR));
         if(txtDescripcion.getText().length()==0 || txtPrecioUni.getText().length()==0 || txtStock.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
         }else if(txtDescripcion.getText().length()<3){
@@ -269,13 +272,11 @@ public final class MantProductos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El stock no puede superar las 1000 unidades.");
         }else{
             String des = txtDescripcion.getText();
-             double precio = Double.parseDouble(txtPrecioUni.getText());
+            double precio = Double.parseDouble(txtPrecioUni.getText());
             int Stock = Integer.parseInt(txtStock.getText());
             String nomprove = cbxProveedor.getSelectedItem().toString();
             Proveedor prove =  daoP.BuscarporNombre(nomprove);
-            Date fecha = new Date();
-            String fechap="20/10/28";
-            SimpleDateFormat forFecha = new SimpleDateFormat("dd/MM/YYYY");
+            String fechap=año+"-"+mes+"-"+dia;
             Producto p = new Producto(0, des, precio, Stock, prove, fechap);
             dao.Insertar(p);
             bloqueo(false);   
@@ -366,8 +367,9 @@ public final class MantProductos extends javax.swing.JFrame {
         modelo.addColumn("Descripcion");
         modelo.addColumn("Precio Unitario");
         modelo.addColumn("Stock Disponible");
+        modelo.addColumn("Proveedor");
         modelo.addColumn("Fecha");
-        
+
         Iterator it = lista.iterator();
         int i=0;
         while(it.hasNext()){
@@ -376,8 +378,8 @@ public final class MantProductos extends javax.swing.JFrame {
             modelo.setValueAt(a.getProducto(),i, 1);
             modelo.setValueAt(a.getPrecioUni(),i, 2);
             modelo.setValueAt(a.getStock(),i, 3);
-            //modelo.setValueAt(a.getProveedor().getProveedor(),i, 4);
-            modelo.setValueAt(a.getFecha(),i, 4);
+            modelo.setValueAt(a.getProveedor().getProveedor(),i, 4);
+            modelo.setValueAt(a.getFecha(),i, 5);
             i++;
         }
         this.jTable.setModel(modelo);

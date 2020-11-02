@@ -74,6 +74,7 @@ public class DAOCargo extends Conexion implements ICRUDS<Cargo>{
         return null;
     }
 
+    
     @Override
     public List<Cargo> Listar() {
         sql = "SELECT * FROM Cargo order by idcargo ASC";

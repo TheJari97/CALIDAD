@@ -23,18 +23,17 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     private String sql ;
     @Override
     public void Insertar(Producto pro) {
-        sql = "INSERT INTO producto(proveedor_id,nombre,precio,cantidad,estado,fecha)"
-                + "VALUES ('" + 1 + "'," + pro.getProducto() + "'," + pro.getPrecioUni() + 
-                "," + pro.getStock() + "," + 1 + "," + pro.getFecha() + "')";
+        sql ="INSERT INTO producto (proveedor_id,nombre,precio,cantidad,estado,fecha) VALUES ('"+pro.getProveedor().getIdproveedor()
+                +"','"+pro.getProducto()+"','"+pro.getPrecioUni()+"','"+pro.getStock()+"','"+1+"','"+pro.getFecha()+"')";
         try {
             conex = getConexion();
             pstm = conex.prepareStatement(sql);
             pstm.executeUpdate();
         } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DAOUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
                 conex.close();
-                pstm.close();
                 pstm.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DAOProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,11 +44,10 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     @Override
     public void Editar(Producto pro) {
         sql = "UPDATE PRODUCTO SET "
-                + "producto='"+pro.getProducto()+"',"
-                + "precioUni="+pro.getPrecioUni()+","
-                + "Stock="+pro.getStock()+","
-                + "fecha="+pro.getFecha()+","
-                + "idProveedor="+pro.getProveedor().getIdproveedor()+" "
+                + "nombre='"+pro.getProducto()+"',"
+                + "precio="+pro.getPrecioUni()+","
+                + "cantidad="+pro.getStock()+","
+                + "proveedor_id="+pro.getProveedor().getIdproveedor()+" "
                 + "WHERE idproducto="+pro.getCodProducto();
         try {
             conex=getConexion();
@@ -92,18 +90,17 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     @Override
     public Producto BuscarporID(int ID) {
         try {
-            sql = "SELECT * FROM PRODUCTO p INNER JOIN PROVEEDOR pr ON p.idProveedor=pr.idProveedor WHERE p.codProducto="+ID;
+            sql = "SELECT * FROM PRODUCTO WHERE idproducto="+ID;
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             rsset.next();
             
-            String des=rsset.getString(2);
-            double precio = rsset.getDouble(3);
-            int stck = rsset.getInt(4);
-            Proveedor p = new Proveedor(rsset.getInt(7), rsset.getString(8));
+            DAOProveedor pr=new DAOProveedor();
+            Proveedor p = new Proveedor();
+            p=pr.BuscarporID(rsset.getInt(2));
             
-            Producto retorno = new Producto(rsset.getInt(1), rsset.getString(2), rsset.getFloat(3), rsset.getInt(4), p, rsset.getString(6));
+            Producto retorno= new Producto(rsset.getInt(1), rsset.getString(3), rsset.getDouble(4), rsset.getInt(5), new Proveedor(rsset.getInt(2), p.getProveedor()), rsset.getString(7));
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProducto.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,7 +126,10 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
             rsset=pstm.executeQuery();
             
             while(rsset.next()){
-                Producto n = new Producto(rsset.getInt(1),rsset.getString(3), rsset.getDouble(4), rsset.getInt(5), null, rsset.getString(7));
+                DAOProveedor pr=new DAOProveedor();
+                Proveedor pro=new Proveedor();
+                pro=pr.BuscarporID(rsset.getInt(2));
+                Producto n = new Producto(rsset.getInt(1),rsset.getString(3), rsset.getDouble(4), rsset.getInt(5), new Proveedor(rsset.getInt(2), pro.getProveedor()), rsset.getString(7));
                 lista.add(n);
             }
             return lista;

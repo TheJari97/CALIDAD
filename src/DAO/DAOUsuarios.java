@@ -94,6 +94,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
     public Usuario BuscarporID(int ID) {
         try {
             Usuario emp = null;
+            DAOCargo c=new DAOCargo();
             sql="SELECT * FROM Usuario WHERE idusuario="+ID;
             
             conex=getConexion();
@@ -101,8 +102,10 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
             rsset=pstm.executeQuery();
             
             rsset.next();
+            Cargo car= new Cargo();
+            car=c.BuscarporID(rsset.getInt("cargo_id"));
             emp = new Usuario(ID,rsset.getString("nombre") , rsset.getString("apellido"), rsset.getString("documento"), 
-                    rsset.getInt("edad"), rsset.getString("telefono"), rsset.getString("password"), /*(Cargo) rsset.getObject("cargo_id")*/ null);
+                    rsset.getInt("edad"), rsset.getString("telefono"), rsset.getString("password"), new Cargo(rsset.getInt("cargo_id"),car.getCargo()));
      
             return emp;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -121,7 +124,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
     
     public Usuario BuscarporNombre(String Nombre, String Apellido) {
         try {
-            sql="SELECT * FROM USUrio WHERE nombre='"+Nombre+"' AND apellido='"+Apellido+"'";
+            sql="SELECT * FROM usuario WHERE nombre='"+Nombre+"' AND apellido='"+Apellido+"'";
             
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -148,6 +151,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
 
     @Override
     public List<Usuario> Listar() {
+        DAOCargo c=new  DAOCargo();
         try {
             List<Usuario> lista = new ArrayList<>();
             sql="SELECT * FROM Usuario";
@@ -156,8 +160,10 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
             pstm= conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             while(rsset.next()){
+                Cargo car= new Cargo();
+                car=c.BuscarporID(rsset.getInt(8));
                 Usuario aux = new Usuario(rsset.getInt(1), rsset.getString(2), rsset.getString(3),rsset.getString(4),
-                        rsset.getInt(5),rsset.getString(6),rsset.getString(7), null);
+                        rsset.getInt(5),rsset.getString(6),rsset.getString(7), new Cargo(rsset.getInt(8),car.getCargo()));
                 lista.add(aux);
             }
             return lista;

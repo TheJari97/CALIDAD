@@ -1,6 +1,7 @@
 package Entidades;
 
 public class Proveedor {
+
     private int idproveedor;
     private String proveedor;
 

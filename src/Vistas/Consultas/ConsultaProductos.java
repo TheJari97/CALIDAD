@@ -137,17 +137,19 @@ public class ConsultaProductos extends javax.swing.JFrame {
         modelo.addColumn("Descripcion");
         modelo.addColumn("Precio");
         modelo.addColumn("Stock");
-        //modelo.addColumn("Proveedor");
+        modelo.addColumn("Proveedor");
+        modelo.addColumn("Fecha");
         
         Iterator it = list.iterator();
         int row = 0;
         while(it.hasNext()){
             Producto tmp = (Producto) it.next();
-            modelo.setValueAt("C "+tmp.getCodProducto(), row, 0);
+            modelo.setValueAt("P "+tmp.getCodProducto(), row, 0);
             modelo.setValueAt(tmp.getProducto(), row, 1);
             modelo.setValueAt(tmp.getPrecioUni(), row, 2);
             modelo.setValueAt(tmp.getStock(), row, 3);
-            //modelo.setValueAt(tmp.getProveedor().getProveedor(), row, 4);
+            modelo.setValueAt(tmp.getProveedor().getProveedor(), row, 4);
+            modelo.setValueAt(tmp.getFecha(), row, 5);
             row++;
         }
         tm = modelo;

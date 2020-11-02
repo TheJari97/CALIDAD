@@ -29,7 +29,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
     
     public int VerUltimoNumVenta(){
         try {
-            sql="SELECT NumVenta FROM VENTA ORDER BY NumVenta ASC";
+            sql="SELECT idventa FROM VENTA ORDER BY idventa ASC";
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();

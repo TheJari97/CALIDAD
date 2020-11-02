@@ -44,6 +44,7 @@ public class ModificacionProducto extends javax.swing.JFrame {
         load();
     }
 
+
     public void setCbxPro(JComboBox<String> cbxPro) {
         this.cbxPro = cbxPro;
         load();
@@ -221,9 +222,9 @@ public class ModificacionProducto extends javax.swing.JFrame {
         String descripcion = txtDescrip.getText();
         double precioUni =Double.parseDouble(txtPrecioU.getText());
         int stock = Integer.parseInt(txtStock.getText());
-        Proveedor p = P.BuscarporNombre((String) cbxPro.getSelectedItem());
+        Proveedor pr = P.BuscarporID(cbxPro.getSelectedIndex()+1);
         
-        Producto actu = new Producto(id, descripcion, precioUni, stock,p,null);
+        Producto actu = new Producto(id, descripcion, precioUni, stock,pr,null);
         dao.Editar(actu);
     }
     private void CargarProveedores(){
