@@ -155,10 +155,8 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
 
     @Override
     public List<Venta> Listar() {
-        //DAOCliente dao_c = new DAOCliente();
         DAOUsuarios dao_e = new DAOUsuarios();
         
-        //Cliente nc = null;
         Usuario ne=null;
         List<Venta> lista = new ArrayList<>();
         

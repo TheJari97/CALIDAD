@@ -30,18 +30,14 @@ public class MantVentas extends javax.swing.JFrame {
     public MantVentas() {
         initComponents();
         Actualizar_TablaVenta();
-        CargarClientes();
         CargarEmpleados();
         CargarProductos();
         Bloqueo(false);
     }
 
-    public JComboBox<String> getCbxCliente() {
-        return cbxCliente;
-    }
 
     public JComboBox<String> getCbxEmpleado() {
-        return cbxEmpleado;
+        return cbxusuario;
     }
 
     /*
@@ -54,12 +50,8 @@ public class MantVentas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cbxCliente = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        cbxEmpleado = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
+        cbxusuario = new javax.swing.JComboBox<>();
         btnNueva = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
@@ -87,17 +79,7 @@ public class MantVentas extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Mantenimiento de las Ventas");
 
-        jLabel2.setText("Cliente:");
-
         jLabel3.setText("Empleado:");
-
-        jLabel4.setText("Fecha(YY-MM-DD):");
-
-        txtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFechaKeyTyped(evt);
-            }
-        });
 
         btnNueva.setText("Nueva Venta");
         btnNueva.addActionListener(new java.awt.event.ActionListener() {
@@ -191,6 +173,11 @@ public class MantVentas extends javax.swing.JFrame {
         btnModificarDETV.setText("Modificar compra");
 
         btnBorrarDETV.setText("Eliminar Compra");
+        btnBorrarDETV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarDETVActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,20 +188,10 @@ public class MantVentas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxEmpleado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFecha)))
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxusuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,22 +239,13 @@ public class MantVentas extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNueva))
+                    .addComponent(btnNueva)
+                    .addComponent(cbxusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbxEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar))
+                .addComponent(btnGuardar)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRefresh)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(btnRefresh)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -308,13 +276,6 @@ public class MantVentas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaKeyTyped
-        char c = evt.getKeyChar();
-        if( (c<'0' || c>'9') && c!='-'){
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtFechaKeyTyped
-
     private void btnNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaActionPerformed
         // TODO add your handling code here:
         nueva = new Venta();
@@ -341,7 +302,8 @@ public class MantVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarDETVENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDETVENActionPerformed
-      /*  DAOProducto daoP = new DAOProducto();
+        DAOProducto daoP = new DAOProducto();
+        DAOVentas v=new DAOVentas();
         Producto p = daoP.BuscarporNombre(cbxProductos.getSelectedItem().toString());
         int stoc = p.getStock();
         int cant = Integer.parseInt(txtCANTIDAD.getText());
@@ -350,11 +312,11 @@ public class MantVentas extends javax.swing.JFrame {
         }else{
             p.setStock(stoc-cant);
             daoP.Editar(p);
-            DET_Venta nuevo = new DET_Venta(p, cant);
+            DET_Venta nuevo = new DET_Venta(v.VerUltimoNumVenta(),p,cant,cant*p.getPrecioUni());
             
             nueva.añadir_compra(nuevo);
         }
-        Ver_DETVenta(nueva.getCompras());*/
+        Ver_DETVenta(nueva.getCompras());
     }//GEN-LAST:event_btnAgregarDETVENActionPerformed
 
     private void txtCANTIDADKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCANTIDADKeyTyped
@@ -368,37 +330,13 @@ public class MantVentas extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         DAOVentas dao = new DAOVentas();
         DAOUsuarios daoE = new DAOUsuarios();        
-        
-        String nombreC;
-        int separador;
-        int ID;
-        
-        nombreC = (String) this.cbxCliente.getSelectedItem();
-        separador = nombreC.indexOf(" ");
-        ID = Integer.parseInt( nombreC.substring(0,separador) );
-        
-        //nueva.setCliente(daoC.BuscarporID(ID));
-        
-        nombreC = (String) this.cbxEmpleado.getSelectedItem();
-        separador = nombreC.indexOf(" ");
-        ID = Integer.parseInt( nombreC.substring(0,separador) );
-        
-        nueva.setEmpleado(daoE.BuscarporID(ID));
-        nueva.setFechaE(txtFecha.getText());
-        //nueva.setCodventa(dao.VerUltimoNumVenta() + 1);
-        
+        Usuario u=new Usuario();
+        u=daoE.BuscarporNombre(cbxusuario.getSelectedItem().toString());
+        nueva.setEmpleado(u);
         dao.Insertar(nueva);
         Bloqueo(false);
         Actualizar_TablaVenta();
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void JTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableVentasMouseClicked
-        // TODO add your handling code here:
-        DAOVentas dao = new DAOVentas();
-        int fila = JTableVentas.getSelectedRow();
-        int numV = (int) JTableVentas.getValueAt(fila, 0);
-        Ver_DETVenta( dao.Ver_DET_VENTAS(numV) );
-    }//GEN-LAST:event_JTableVentasMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
@@ -418,6 +356,18 @@ public class MantVentas extends javax.swing.JFrame {
         dao.Eliminar( (numV));
         Actualizar_TablaVenta();
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void JTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableVentasMouseClicked
+        // TODO add your handling code here:
+        DAOVentas dao = new DAOVentas();
+        int fila = JTableVentas.getSelectedRow();
+        int numV = (int) JTableVentas.getValueAt(fila, 0);
+        Ver_DETVenta( dao.Ver_DET_VENTAS(numV) );
+    }//GEN-LAST:event_JTableVentasMouseClicked
+
+    private void btnBorrarDETVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarDETVActionPerformed
+        
+    }//GEN-LAST:event_btnBorrarDETVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,24 +404,14 @@ public class MantVentas extends javax.swing.JFrame {
         });
     }
 
-    private void CargarClientes(){
-       /* DAOCliente dao = new DAOCliente();
-        List<Cliente> lista= dao.Listar();
-        Iterator it = lista.iterator();
-        while(it.hasNext()){
-            Cliente aux = (Cliente) it.next();
-            String item = aux.getIdCliente()+" - "+aux.getNombre()+" "+aux.getApellido();
-            cbxCliente.addItem(item);
-        }*/
-    }
     private void CargarEmpleados(){
         DAOUsuarios dao = new DAOUsuarios();
         List<Usuario> lista = dao.Listar();
         Iterator it=lista.iterator();
         while(it.hasNext()){
             Usuario aux = (Usuario) it.next();
-            String item = aux.getIdusuario()+" - "+aux.getNombre()+" "+aux.getApellido();
-            cbxEmpleado.addItem(item);
+            String item =aux.getNombre();
+            cbxusuario.addItem(item);
         }
     }
     private void CargarProductos(){
@@ -483,7 +423,7 @@ public class MantVentas extends javax.swing.JFrame {
         }
     }
     private void Ver_DETVenta( List<DET_Venta> lista){
-      /*  DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.setRowCount(lista.size());
         modelo.addColumn("Producto");
         modelo.addColumn("Precio Unitario");
@@ -494,14 +434,14 @@ public class MantVentas extends javax.swing.JFrame {
         int i=0;
         while(it.hasNext()){
            DET_Venta tmp= (DET_Venta) it.next();
-           modelo.setValueAt(tmp.getP().getProducto()), i, 0);
+           modelo.setValueAt(tmp.getP().getProducto(), i, 0);
            modelo.setValueAt(tmp.getP().getPrecioUni(), i, 1);
            modelo.setValueAt(tmp.getCantidad(), i, 2);
            modelo.setValueAt(tmp.getPrecioN(), i, 3);
            i++;
         }
         this.JTableDETV.setModel(modelo);
-    */
+    
     }
     private void Actualizar_TablaVenta(){
         DefaultTableModel modelo = new DefaultTableModel();
@@ -513,7 +453,6 @@ public class MantVentas extends javax.swing.JFrame {
         modelo.addColumn("Numero de Venta");
         modelo.addColumn("Fecha de Emision");
         modelo.addColumn("Precio Total");
-        modelo.addColumn("Cliente");
         modelo.addColumn("Empleado");
         
         int i = 0;
@@ -531,9 +470,7 @@ public class MantVentas extends javax.swing.JFrame {
     }
     
     private void Bloqueo(boolean estado){
-        cbxCliente.setEnabled(estado);
-        cbxEmpleado.setEnabled(estado);
-        txtFecha.setEnabled(estado);
+        cbxusuario.setEnabled(estado);
         btnGuardar.setEnabled(estado);
         btnAgregarDETVEN.setEnabled(estado);
         btnCancelar.setEnabled(estado);
@@ -553,13 +490,10 @@ public class MantVentas extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarDETV;
     private javax.swing.JButton btnNueva;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JComboBox<String> cbxCliente;
-    private javax.swing.JComboBox<String> cbxEmpleado;
     private javax.swing.JComboBox<String> cbxProductos;
+    private javax.swing.JComboBox<String> cbxusuario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -567,6 +501,5 @@ public class MantVentas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneDETV;
     private javax.swing.JScrollPane jScrollPaneV;
     private javax.swing.JTextField txtCANTIDAD;
-    private javax.swing.JTextField txtFecha;
     // End of variables declaration//GEN-END:variables
 }

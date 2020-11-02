@@ -122,9 +122,9 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
         return null;
     }
     
-    public Usuario BuscarporNombre(String Nombre, String Apellido) {
+    public Usuario BuscarporNombre(String Nombre) {
         try {
-            sql="SELECT * FROM usuario WHERE nombre='"+Nombre+"' AND apellido='"+Apellido+"'";
+            sql="SELECT * FROM usuario WHERE nombre='"+Nombre+"'";
             
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
             
             Usuario temp = null;
             while(rsset.next()){
-                temp = new Usuario(rsset.getInt(1), Nombre, Apellido);
+                temp = new Usuario(rsset.getInt(1), rsset.getString(2), rsset.getString(3));
             }
             return temp;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -180,5 +180,6 @@ public class DAOUsuarios extends Conexion implements ICRUDS<Usuario>{
         }        
         return null;
     }
+
 
 }

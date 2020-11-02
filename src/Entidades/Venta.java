@@ -11,17 +11,19 @@ public class Venta {
     private String fechaE;
     private Usuario empleado;
     private String obsventa;
-    private List<DET_Venta> compras = new ArrayList<>();
+    private List<DET_Venta> compras;
 
     public Venta() {
     }
 
-    public Venta(String codventa, double precioT, String fechaE, Usuario empleado, String obsventa) {
+    public Venta(String codventa, double precioT, String fechaE, Usuario empleado, String obsventa, List<DET_Venta> compras) {
         this.codventa = codventa;
         this.precioT = precioT;
         this.fechaE = fechaE;
         this.empleado = empleado;
         this.obsventa = obsventa;
+        this.compras = compras;
+        UpdatePrecioT();
     }
 
     public String getCodventa() {

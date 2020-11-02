@@ -150,15 +150,16 @@ public class DAOProducto extends Conexion implements ICRUDS<Producto>{
     
     public Producto BuscarporNombre(String descripcion){
         try {
-            sql="SELECT * FROM PRODUCTO p INNER JOIN PROVEEDOR pr ON p.idProveedor=pr.idProveedor WHERE p.descripcion='"+descripcion+"'";
+            sql="SELECT * FROM PRODUCTO WHERE nombre='"+descripcion+"'";
             conex=getConexion();
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             rsset.next();
+             DAOProveedor pr=new DAOProveedor();
+            Proveedor p = new Proveedor();
+            p=pr.BuscarporID(rsset.getInt(2));
             
-            Producto retorno = new Producto(rsset.getInt(1),rsset.getString(2), rsset.getDouble(3), rsset.getInt(4),
-                        new Proveedor(rsset.getInt(7), rsset.getString(8)), rsset.getString(6));
-            
+            Producto retorno= new Producto(rsset.getInt(1), rsset.getString(3), rsset.getDouble(4), rsset.getInt(5), new Proveedor(rsset.getInt(2), p.getProveedor()), rsset.getString(7));
             return retorno;
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DAOProducto.class.getName()).log(Level.SEVERE, null, ex);
