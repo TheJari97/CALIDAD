@@ -303,7 +303,6 @@ public class MantVentas extends javax.swing.JFrame {
 
     private void btnAgregarDETVENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDETVENActionPerformed
         DAOProducto daoP = new DAOProducto();
-        DAOVentas v=new DAOVentas();
         Producto p = daoP.BuscarporNombre(cbxProductos.getSelectedItem().toString());
         int stoc = p.getStock();
         int cant = Integer.parseInt(txtCANTIDAD.getText());
@@ -312,7 +311,7 @@ public class MantVentas extends javax.swing.JFrame {
         }else{
             p.setStock(stoc-cant);
             daoP.Editar(p);
-            DET_Venta nuevo = new DET_Venta(v.VerUltimoNumVenta(),p,cant,cant*p.getPrecioUni());
+            DET_Venta nuevo = new DET_Venta(v,p,cant,cant*p.getPrecioUni());
             
             nueva.añadir_compra(nuevo);
         }
