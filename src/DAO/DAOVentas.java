@@ -11,6 +11,7 @@ import Entidades.Usuario;
 import Entidades.Venta;
 import Utilidades.Conexion;
 import DAO.DAOUsuarios;
+import Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -166,13 +167,12 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             
             while(rsset.next()){
                 int numventa = rsset.getInt(1);
-                String fechaE = rsset.getString(3);
-                //nc = dao_c.BuscarporID(rsset.getInt(4));
+                String fechaE = rsset.getString(4);
                 ne = dao_e.BuscarporID(rsset.getInt(2));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
                 
-                Venta ven = new Venta();
+                Venta ven = new Venta(rsset.getString(1), rsset.getDouble(5), fechaE, ne, fechaE, compras);
                 lista.add(ven);
             }
             return lista;
@@ -197,15 +197,16 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             ResultSet set = null;
             try {
                 List<DET_Venta> lista = new ArrayList<>();
-                String q = "SELECT * FROM DETALLE_VENTA WHERE IDDETALLE_VENTA="+NUMVENTA;
+                String q = "SELECT * FROM DETALLE_VENTA WHERE venta_id="+NUMVENTA;
                 DAOProducto daoP = new DAOProducto();
-                
+                Producto p=new Producto();
                 ps = cn.prepareStatement(q);
                 set = ps.executeQuery();
-                
+
                 while(set.next()){
-                    /*DET_Venta aux = new DET_Venta( daoP.BuscarporID(set.getInt(2)) , set.getInt(3));
-                    lista.add(aux);*/
+                    p=daoP.BuscarporID(set.getInt(3));
+                    DET_Venta aux = new DET_Venta(p , set.getInt(4));
+                    lista.add(aux);
                 }
                 return lista;
             } catch (SQLException ex) {

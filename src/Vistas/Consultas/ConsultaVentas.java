@@ -91,13 +91,10 @@ public class ConsultaVentas extends javax.swing.JFrame {
 
         JTableDETV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Producto", "Precio Unitario", "Cantidad", "Precio Neto"
             }
         ));
         jScrollPaneDETV.setViewportView(JTableDETV);
@@ -176,7 +173,8 @@ public class ConsultaVentas extends javax.swing.JFrame {
         // TODO add your handling code here:
         DAOVentas dao = new DAOVentas();
         int fila = JTableVentas.getSelectedRow();
-        int numV = (int) JTableVentas.getValueAt(fila, 0);
+        String num = (String) JTableVentas.getValueAt(fila, 0);
+        int numV= Integer.parseInt(num);
         Ver_DETVenta( dao.Ver_DET_VENTAS(numV) );
     }//GEN-LAST:event_JTableVentasMouseClicked
 
@@ -206,7 +204,8 @@ public class ConsultaVentas extends javax.swing.JFrame {
             
             for(int fila = 0; fila<JTableVentas.getRowCount(); fila++){
                 DAOVentas dao = new DAOVentas();
-                int numV = (int) JTableVentas.getValueAt(fila, 0);
+                String num = (String) JTableVentas.getValueAt(fila, 0);
+                int numV= Integer.parseInt(num);
                 Ver_DETVenta( dao.Ver_DET_VENTAS(numV) );
                 tb.add(JTableDETV);
                 nom.add("Detalles NumV"+ numV);

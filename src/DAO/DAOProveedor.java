@@ -85,7 +85,7 @@ public class DAOProveedor extends Conexion implements ICRUDS<Proveedor>{
             rsset=pstm.executeQuery();
             rsset.next();
             
-            Proveedor retorno = new Proveedor(ID,rsset.getString("proveedor"));
+            Proveedor retorno = new Proveedor(ID,rsset.getString(2));
             return retorno;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DAOProveedor.class.getName()).log(Level.SEVERE, null, ex);
