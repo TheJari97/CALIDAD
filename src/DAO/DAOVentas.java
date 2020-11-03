@@ -34,7 +34,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             
-            int numventa = 999;
+            int numventa=999;
             while(rsset.next()){
                 numventa=rsset.getInt(1);
             }
@@ -56,19 +56,19 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
     @Override
     public void Insertar(Venta objetoT) {
         try {
-            sql="INSERT INTO VENTA(usuario_id,observaciones,fecha,total) VALUES ("+objetoT.getEmpleado().getIdusuario()+",'"+objetoT.getObsventa()+"',"
-                    +objetoT.getPrecioT()+")";      //Inserta la venta
+            sql="INSERT INTO VENTA(usuario_id,observaciones,fecha,total) VALUES ('"+objetoT.getEmpleado().getIdusuario()+"','"+objetoT.getObsventa()
+                    +"','"+objetoT.getFechaE()+"','"+objetoT.getPrecioT()+"')";      //Inserta la venta
             conex = getConexion();
             pstm = conex.prepareStatement(sql);
             pstm.executeUpdate();
-            
+           
             List<DET_Venta> compras = objetoT.getCompras();
             Iterator it = compras.iterator();
             while(it.hasNext()){
                 DET_Venta tmp = (DET_Venta) it.next();
                 conex.close();
-                sql="INSERT INTO DETALLE_VENTA(iddetalle_venta,venta_id,producto_id,,cantidad,subtotal) VALUES ("+ VerUltimoNumVenta() +
-                        ","+tmp.getV().getCodventa()+","+tmp.getP().getCodProducto()+","+tmp.getCantidad()+","+tmp.getPrecioN()+")";
+                sql="INSERT INTO DETALLE_VENTA(venta_id,producto_id,cantidad,subtotal) VALUES ('"+VerUltimoNumVenta()+"','"+tmp.getP().getCodProducto()
+                    +"','"+tmp.getCantidad()+"','"+tmp.getPrecioN()+"')";
                 conex=getConexion();
                 pstm=conex.prepareStatement(sql);
                 pstm.executeUpdate();
@@ -125,18 +125,16 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
             pstm=conex.prepareStatement(sql);
             rsset=pstm.executeQuery();
             
-           // Cliente nc;
             Usuario ne;
             Venta ven = null;
             
             while(rsset.next()){
                 int numventa = rsset.getInt(1);
-                String fechaE = rsset.getString(3);
-             //   nc = dao_c.BuscarporID(rsset.getInt(4));
-                ne = dao_e.BuscarporID(rsset.getInt(5));
+                String fechaE = rsset.getString(4);
+                ne = dao_e.BuscarporID(rsset.getInt(2));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
-               // ven = new Venta(numventa,null, fechaE, compras,null, ne,null,null);                
+                ven = new Venta(rsset.getString(1),rsset.getDouble(5), fechaE, ne,null,compras);                
             }
             return ven;
         } catch (SQLException | ClassNotFoundException ex) {
@@ -170,7 +168,7 @@ public class DAOVentas extends Conexion implements ICRUDS<Venta>{
                 int numventa = rsset.getInt(1);
                 String fechaE = rsset.getString(3);
                 //nc = dao_c.BuscarporID(rsset.getInt(4));
-                ne = dao_e.BuscarporID(rsset.getInt(5));
+                ne = dao_e.BuscarporID(rsset.getInt(2));
                 
                 List<DET_Venta> compras = Ver_DET_VENTAS(numventa);
                 

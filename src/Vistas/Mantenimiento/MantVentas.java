@@ -5,9 +5,11 @@
  */
 package Vistas.Mantenimiento;
 
+import DAO.DAOComprobante;
 import DAO.DAOUsuarios;
 import DAO.DAOProducto;
 import DAO.DAOVentas;
+import Entidades.Comprobante;
 import Entidades.DET_Venta;
 import Entidades.Usuario;
 import Entidades.Producto;
@@ -55,12 +57,8 @@ public class MantVentas extends javax.swing.JFrame {
         btnNueva = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
-        jScrollPaneV = new javax.swing.JScrollPane();
-        JTableVentas = new javax.swing.JTable();
         jScrollPaneDETV = new javax.swing.JScrollPane();
         JTableDETV = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
         btnAgregarDETVEN = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -71,6 +69,10 @@ public class MantVentas extends javax.swing.JFrame {
         cbxProductos = new javax.swing.JComboBox<>();
         btnModificarDETV = new javax.swing.JButton();
         btnBorrarDETV = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtdocumento = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtrazon = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -102,42 +104,22 @@ public class MantVentas extends javax.swing.JFrame {
             }
         });
 
-        JTableVentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        JTableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JTableVentasMouseClicked(evt);
-            }
-        });
-        jScrollPaneV.setViewportView(JTableVentas);
-
         JTableDETV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Producto", "Precio Unitario", "Cantidad", "Precio Neto"
             }
         ));
         jScrollPaneDETV.setViewportView(JTableDETV);
 
-        jLabel5.setText("Tabla de Ventas");
-
-        jLabel6.setText("Tabla de compras x Venta");
-
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnAgregarDETVEN.setText("Agregar Producto a la Venta");
         btnAgregarDETVEN.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +153,11 @@ public class MantVentas extends javax.swing.JFrame {
         });
 
         btnModificarDETV.setText("Modificar compra");
+        btnModificarDETV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDETVActionPerformed(evt);
+            }
+        });
 
         btnBorrarDETV.setText("Eliminar Compra");
         btnBorrarDETV.addActionListener(new java.awt.event.ActionListener() {
@@ -179,6 +166,16 @@ public class MantVentas extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Documento:");
+
+        txtdocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdocumentoActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Razon Social:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,50 +183,61 @@ public class MantVentas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxusuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCANTIDAD, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(btnAgregarDETVEN)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cbxusuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(24, 24, 24)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPaneDETV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnModificarDETV)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnBorrarDETV))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel2))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtdocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                                            .addComponent(txtrazon))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPaneV, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPaneDETV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnModificarDETV)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnBorrarDETV)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(118, 118, 118)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCANTIDAD, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAgregarDETVEN))))
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -242,27 +250,35 @@ public class MantVentas extends javax.swing.JFrame {
                     .addComponent(btnNueva)
                     .addComponent(cbxusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(btnGuardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnRefresh)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(btnAgregarDETVEN))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneV, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefresh))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
+                            .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(txtCANTIDAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPaneDETV, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                            .addComponent(btnAgregarDETVEN))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPaneDETV, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(121, 121, 121)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtrazon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(127, 127, 127)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditar)
@@ -270,7 +286,7 @@ public class MantVentas extends javax.swing.JFrame {
                         .addComponent(btnModificarDETV)
                         .addComponent(btnBorrarDETV))
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -311,7 +327,7 @@ public class MantVentas extends javax.swing.JFrame {
         }else{
             p.setStock(stoc-cant);
             daoP.Editar(p);
-            DET_Venta nuevo = new DET_Venta(v,p,cant,cant*p.getPrecioUni());
+            DET_Venta nuevo = new DET_Venta(null,p, cant,0);
             
             nueva.añadir_compra(nuevo);
         }
@@ -330,16 +346,46 @@ public class MantVentas extends javax.swing.JFrame {
         DAOVentas dao = new DAOVentas();
         DAOUsuarios daoE = new DAOUsuarios();        
         Usuario u=new Usuario();
+        Calendar c1= Calendar.getInstance();
+        Calendar c = new GregorianCalendar();
+        String dia = Integer.toString(c.get(Calendar.DATE));
+        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String año = Integer.toString(c.get(Calendar.YEAR));
+        String fechap=año+"-"+mes+"-"+dia;
+        nueva.setFechaE(fechap);
+        nueva.setObsventa("");
         u=daoE.BuscarporNombre(cbxusuario.getSelectedItem().toString());
         nueva.setEmpleado(u);
-        dao.Insertar(nueva);
-        Bloqueo(false);
+        Comprobante co=new Comprobante();
+        
+        if(txtdocumento.getText().length()==0){
+            JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
+        }else if(txtdocumento.getText().length()!= 8 && txtdocumento.getText().length()!= 11){
+            JOptionPane.showMessageDialog(null, "El valor dado en el campo documento es invalido");
+        }else{
+            if(txtdocumento.getText().length()==11){
+                if(txtrazon.getText().length()<=0){
+                    JOptionPane.showMessageDialog(null, "Debe completar la Razon social");
+                }
+                co.setRazonsocial(txtrazon.getText());
+            }else{
+                  co.setRazonsocial(txtrazon.getText());
+            }
+            DAOComprobante com=new DAOComprobante();   
+            co.setFecha(fechap);
+            co.setDocumento(txtdocumento.getText());
+            co.setTotal(nueva.getPrecioT());
+            dao.Insertar(nueva);
+            com.Insertar(co);
+            Bloqueo(false);
+        }
+        JOptionPane.showMessageDialog(null, "Venta Registrada!!");
         Actualizar_TablaVenta();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        DAOVentas dao = new DAOVentas();
+       /* DAOVentas dao = new DAOVentas();
         DAOProducto daoP = new DAOProducto();
         int fila = JTableVentas.getSelectedRow();
         int numV = (int) JTableVentas.getValueAt(fila, 0);
@@ -353,20 +399,24 @@ public class MantVentas extends javax.swing.JFrame {
             daoP.Editar(tmp);
         }
         dao.Eliminar( (numV));
-        Actualizar_TablaVenta();
+        Actualizar_TablaVenta();*/
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void JTableVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableVentasMouseClicked
-        // TODO add your handling code here:
-        DAOVentas dao = new DAOVentas();
-        int fila = JTableVentas.getSelectedRow();
-        int numV = (int) JTableVentas.getValueAt(fila, 0);
-        Ver_DETVenta( dao.Ver_DET_VENTAS(numV) );
-    }//GEN-LAST:event_JTableVentasMouseClicked
 
     private void btnBorrarDETVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarDETVActionPerformed
         
     }//GEN-LAST:event_btnBorrarDETVActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnModificarDETVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDETVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarDETVActionPerformed
+
+    private void txtdocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdocumentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdocumentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,7 +493,7 @@ public class MantVentas extends javax.swing.JFrame {
     
     }
     private void Actualizar_TablaVenta(){
-        DefaultTableModel modelo = new DefaultTableModel();
+        /*DefaultTableModel modelo = new DefaultTableModel();
         DAOVentas dao = new DAOVentas();
         List<Venta> lista = dao.Listar();
         Iterator it=lista.iterator();
@@ -465,7 +515,7 @@ public class MantVentas extends javax.swing.JFrame {
             modelo.setValueAt(e_tmp.getNombre()+" "+e_tmp.getApellido(), i, 4);
             i++;
         }
-        this.JTableVentas.setModel(modelo);
+        this.JTableVentas.setModel(modelo);*/
     }
     
     private void Bloqueo(boolean estado){
@@ -475,11 +525,12 @@ public class MantVentas extends javax.swing.JFrame {
         btnCancelar.setEnabled(estado);
         this.txtCANTIDAD.setEnabled(estado);
         this.cbxProductos.setEnabled(estado);
+        this.txtdocumento.setEnabled(estado);
+        this.txtrazon.setEnabled(estado);
     }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable JTableDETV;
-    private javax.swing.JTable JTableVentas;
     private javax.swing.JButton btnAgregarDETVEN;
     private javax.swing.JButton btnBorrarDETV;
     private javax.swing.JButton btnCancelar;
@@ -492,13 +543,14 @@ public class MantVentas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxProductos;
     private javax.swing.JComboBox<String> cbxusuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPaneDETV;
-    private javax.swing.JScrollPane jScrollPaneV;
     private javax.swing.JTextField txtCANTIDAD;
+    private javax.swing.JTextField txtdocumento;
+    private javax.swing.JTextField txtrazon;
     // End of variables declaration//GEN-END:variables
 }

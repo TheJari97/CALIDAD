@@ -50,6 +50,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         menIProveedores = new javax.swing.JMenuItem();
         menIEmpleados = new javax.swing.JMenuItem();
         menIVentas = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menUtilitarios = new javax.swing.JMenu();
         itemCalculadora = new javax.swing.JMenuItem();
         itemBlocNotas = new javax.swing.JMenuItem();
@@ -131,6 +133,22 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             }
         });
         menConsultas.add(menIVentas);
+
+        jMenuItem2.setText("BOLETAS");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menConsultas.add(jMenuItem2);
+
+        jMenuItem3.setText("FACTURAS");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menConsultas.add(jMenuItem3);
 
         jMenuBar.add(menConsultas);
 
@@ -288,6 +306,20 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menIVentasActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        ConsultasBoleta boleta=new ConsultasBoleta();
+        boleta.setTitle("Consulta de las Boletas");
+        boleta.setLocationRelativeTo(this);
+        boleta.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        ConsultaFacturas comprobante=new ConsultaFacturas();
+        comprobante.setTitle("Consulta de las Facturas");
+        comprobante.setLocationRelativeTo(this);
+        comprobante.setVisible(true); 
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -336,6 +368,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemVentas;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu menConsultas;
     private javax.swing.JMenuItem menIEmpleados;
     private javax.swing.JMenuItem menIProveedores;

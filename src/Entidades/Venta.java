@@ -3,6 +3,7 @@ package Entidades;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class Venta {
 
@@ -11,7 +12,7 @@ public class Venta {
     private String fechaE;
     private Usuario empleado;
     private String obsventa;
-    private List<DET_Venta> compras;
+    private List<DET_Venta> compras= new ArrayList<>();
 
     public Venta() {
     }
@@ -73,7 +74,7 @@ public class Venta {
         UpdatePrecioT();
     }
     public void añadir_compra(DET_Venta obj){
-        if (! obj.equals(null)){
+        if (!obj.equals(null)){
             this.compras.add(obj);
             this.precioT += obj.getPrecioN();
         }
@@ -87,4 +88,32 @@ public class Venta {
         }
         this.precioT=precio;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.codventa);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.precioT) ^ (Double.doubleToLongBits(this.precioT) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.fechaE);
+        hash = 79 * hash + Objects.hashCode(this.empleado);
+        hash = 79 * hash + Objects.hashCode(this.obsventa);
+        hash = 79 * hash + Objects.hashCode(this.compras);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Venta other = (Venta) obj;
+        return true;
+    }
+    
 }

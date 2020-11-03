@@ -5,20 +5,27 @@
  */
 package Vistas.Consultas;
 
+import DAO.DAOComprobante;
+import Entidades.Comprobante;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Usuario
  */
-public class ConsultasComprobante extends javax.swing.JFrame {
-
+public class ConsultasBoleta extends javax.swing.JFrame {
+    TableModel tm;
+    TableRowSorter<TableModel> tr;
     /**
      * Creates new form ConsultasComprobante
      */
-    public ConsultasComprobante() {
+    public ConsultasBoleta() {
         initComponents();
+        ActualizarTabla();
     }
 
   
@@ -52,26 +59,27 @@ public class ConsultasComprobante extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Consulta de los Comprobantes");
+        jLabel1.setText("Consulta de las Boletas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jLabel1)))
                 .addContainerGap(15, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(135, 135, 135))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -79,7 +87,39 @@ public class ConsultasComprobante extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void ActualizarTabla(){
+            DAOComprobante dao = new DAOComprobante();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int rowIndex, int colIndx){
+                    return false;
+                }
+            };
+            List<Comprobante> list = dao.Listar();
 
+            modelo.setRowCount(list.size());
+            modelo.addColumn("Codigo");
+            modelo.addColumn("Id Venta");
+            modelo.addColumn("DNI");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Total");
+
+            Iterator it = list.iterator();
+            int row = 0;
+            while(it.hasNext()){
+                Comprobante tmp = (Comprobante) it.next();
+                modelo.setValueAt("B "+tmp.getIdcomprobante(), row, 0);
+                modelo.setValueAt(tmp.getV().getCodventa(), row, 1);
+                modelo.setValueAt(tmp.getDocumento(), row, 2);
+                modelo.setValueAt(tmp.getFecha(), row, 3);
+                modelo.setValueAt(tmp.getTotal(), row, 4);
+                row++;
+            }
+            tm = modelo;
+            tbCompro.setModel(tm);
+            tr=new TableRowSorter<>(tm);
+            tbCompro.setRowSorter(tr);
+        }
     /**
      * @param args the command line arguments
      */
@@ -97,20 +137,21 @@ public class ConsultasComprobante extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultasComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultasBoleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultasComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultasBoleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultasComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultasBoleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultasComprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultasBoleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultasComprobante().setVisible(true);
+                new ConsultasBoleta().setVisible(true);
             }
         });
     }
