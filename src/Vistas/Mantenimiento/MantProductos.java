@@ -258,7 +258,7 @@ public final class MantProductos extends javax.swing.JFrame {
         Calendar c1= Calendar.getInstance();
         Calendar c = new GregorianCalendar();
         String dia = Integer.toString(c.get(Calendar.DATE));
-        String mes = Integer.toString(c.get(Calendar.MONTH));
+        String mes = Integer.toString(c.get(Calendar.MONTH)+1);
         String año = Integer.toString(c.get(Calendar.YEAR));
         if(txtDescripcion.getText().length()==0 || txtPrecioUni.getText().length()==0 || txtStock.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
